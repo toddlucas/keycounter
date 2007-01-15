@@ -4,6 +4,6 @@ namespace System.Reflection
 	class AssemblyCompileInformationAttribute : Attribute
 	{
 		public string CompileDate {get{return "2007-01-15";}}
-		public string CompileTime {get{return "00:00:46";}}
+		public string CompileTime {get{return "22:15:47";}}
 	}
 }
