@@ -1,0 +1,15 @@
+0.9.1 2007-01-15
+-----------------
+new column for hits per minute in FormDisplay->Per Key
+Visual Studio AboutBox replaces FormAbout, THX to UNCLE JAMAL for the nice pic!
+some new icons for the tray-bar context-menu (looks cool with the new AboutBox :-)
+fixed bug B1 "uptime standby" with a regular uptime-update (timer in FormMain)
+note: the slow timer period causes the uptime to increase in steps of 10s; anyhow, the
+internal counter precision is not reduced.
+basic support for GPLv2
+
+0.9.0 2007-01-08
+-----------------
+setting "debugModeEnabled" switched to false -> no debug-windows for users
+Fixed summary-tab of FormDisplay ("Average key hits per minute since last reset")
+FormAbout shows compilation-date and -time (helper program CompileInfo.exe)
