@@ -9,7 +9,7 @@ using System.Resources;
 [assembly: AssemblyTitle("KeyCounter")]
 [assembly: AssemblyDescription("KeyCounter is a tool for the tray-bar that helps you to get statistics about the useage of your computers keyboard, mouse and uptime. KeyCounter is NOT (!) intended to work as a keylogger, nor is it possible to use it as one without major modifications to the source code. Be sure to protect the privacy of all users and get their accordance. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("b")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("KeyCounter")]
 [assembly: AssemblyCopyright("Copyright OBACHT && UNCLE JAMAL 2007")]
 [assembly: AssemblyTrademark("")]
