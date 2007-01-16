@@ -45,7 +45,7 @@ namespace KeyCounter
       this.textDebugger = formDebug;
       this.hookList = hookList;
       this.debugMode = Properties.Settings.Default.debugModeEnabled;
-      this.counterEngine = new CounterEngine<int>(new KeyTab<int>(GenerateKeyTab()), this.textDebugger);
+      this.counterEngine = new CounterEngine<int>(new KeyTab<int>(GenerateKeyTable()), this.textDebugger);
 
       if (this.debugMode)
         textDebugger.SetLevel(DebugLevel.Debug);
@@ -66,7 +66,7 @@ namespace KeyCounter
       Debug("thread-id " + System.Threading.Thread.CurrentThread.ManagedThreadId.ToString(), DebugLevel.Debug);
     }
 
-    private Dictionary<int, string> GenerateKeyTab ()
+    private Dictionary<int, string> GenerateKeyTable ()
     {
       Dictionary<int, string> output = new Dictionary<int, string>();
 
