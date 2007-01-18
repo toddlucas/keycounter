@@ -8,5 +8,8 @@
     <Setting Name="fileName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">keycounter.bin</Value>
     </Setting>
+    <Setting Name="firstStart" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
