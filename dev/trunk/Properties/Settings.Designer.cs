@@ -40,5 +40,17 @@ namespace KeyCounter.Properties {
                 return ((string)(this["fileName"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool firstStart {
+            get {
+                return ((bool)(this["firstStart"]));
+            }
+            set {
+                this["firstStart"] = value;
+            }
+        }
     }
 }
