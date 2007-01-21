@@ -445,6 +445,7 @@ namespace KeyCounter.Counter
     public TimeSpan uptimeSinceStart;
     public TimeSpan uptimeTotal;
     public ITextDebugger textDebugger = null;
+    public IFileAccessChecker fileAccessChecker = null;
 
     public CounterEngine(KeyTab<TKeyId> keyTab, ITextDebugger textDebugger)
       : this(keyTab, new CountTab<TKeyId>(), textDebugger)
@@ -463,6 +464,7 @@ namespace KeyCounter.Counter
       this.uptimeSinceStart = new TimeSpan(0);
       this.uptimeTotal = new TimeSpan(0);
       this.textDebugger = textDebugger;
+      this.fileAccessChecker = new LogFileAccessChecker();
     }
 
     private void Debug (string msg, DebugLevel msgLevel)
@@ -714,5 +716,60 @@ namespace KeyCounter.Counter
       stream.Close();
     }
     #endregion
+  }
+
+  public class LogFileAccessChecker : IFileAccessChecker
+  {
+    public FileAccessError CheckPathName (string path, string name)
+    {
+      FileAccessError result = FileAccessError.None;
+
+      if (path.Length == 0)
+        return FileAccessError.DirectoryNotValid;
+
+      if (name.Length == 0)
+        return FileAccessError.FilenameNotValid;
+
+      if (Path.GetFileNameWithoutExtension(name).Length == 0)
+        return FileAccessError.FilenameNotValid;
+
+      if (!Directory.Exists(path))
+        return FileAccessError.DirectoryNotValid;
+
+      string fullPath = path + "\\" + name;
+      bool fileExisted = File.Exists(fullPath);
+
+      FileStream fs = null;
+      try
+      {
+        fs = new FileStream(fullPath, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+      }
+
+      catch (DirectoryNotFoundException)
+      {
+        result = FileAccessError.FilenameNotValid;
+      }
+
+      catch (ArgumentException)
+      {
+        result = FileAccessError.IllegalCharacter;
+      }
+
+      catch (UnauthorizedAccessException)
+      {
+        result = FileAccessError.Unauthorized;
+      }
+
+      finally
+      {
+        if (fs != null)
+          fs.Close();
+
+        if ((!fileExisted) && File.Exists(fullPath))
+          File.Delete(fullPath);
+      }
+
+      return result;
+    }
   }
 }

@@ -19,221 +19,352 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using Microsoft.Win32;
 using KeyCounter.WinHook;
 using KeyCounter.Counter;
 
 namespace KeyCounter
 {
-    public partial class FormMain : Form
+  public partial class FormMain : Form
+  {
+    Icon iconOn = Properties.Resources.icon_keyb;
+    Icon iconOff = Properties.Resources.keyb_off;
+    private FormDebug formDebug;
+    private ITextDebugger textDebugger;
+    private List<UniversalHook> hookList;
+    private CounterEngine<int> counterEngine;
+    private bool hookEnabled = false;
+    private const int updateUpTimePeriodMs = 10000;
+    private string logfileInvalidMsg = "The configured logfile is not accessible, please check the options dialog";
+
+    //Settings buffer:
+    private bool debugModeEnabled;
+    private bool firstStart;
+    private string logfilePath;
+    private string logfileName;
+    private string logfileDefaultExtension;
+    private string registryAutostartKey;
+    private string registryAutostartName;
+
+
+    public FormMain (FormDebug formDebug, List<UniversalHook> hookList)
     {
-        Icon iconOn = Properties.Resources.icon_keyb;
-        Icon iconOff = Properties.Resources.keyb_off;
-        private bool debugMode;
-        private FormDebug formDebug;
-        private ITextDebugger textDebugger;
-        private List<UniversalHook> hookList;
-        private CounterEngine<int> counterEngine;
-        private bool hookEnabled = false;
-        private string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + Properties.Settings.Default.fileName;
-        private const int updateUpTimePeriodMs = 10000;
+      InitializeComponent();
+      ReadSettings();
 
-        public FormMain(FormDebug formDebug, List<UniversalHook> hookList)
-        {
-            InitializeComponent();
+      this.formDebug = formDebug;
+      this.textDebugger = formDebug;
+      this.hookList = hookList;
+      this.counterEngine = new CounterEngine<int>(new KeyTab<int>(GenerateKeyTable()), this.textDebugger);
 
-            this.formDebug = formDebug;
-            this.textDebugger = formDebug;
-            this.hookList = hookList;
-            this.debugMode = Properties.Settings.Default.debugModeEnabled;
-            this.counterEngine = new CounterEngine<int>(new KeyTab<int>(GenerateKeyTable()), this.textDebugger);
+      if (this.debugModeEnabled)
+        textDebugger.SetLevel(DebugLevel.Debug);
+      else
+        textDebugger.SetLevel(DebugLevel.None);
 
-            if (this.debugMode)
-                textDebugger.SetLevel(DebugLevel.Debug);
-            else
-                textDebugger.SetLevel(DebugLevel.None);
+      LoadCounter();
+      if (counterEngine.fileAccessChecker.CheckPathName(this.logfilePath, this.logfileName) != FileAccessError.None)
+        ShowBalloon(logfileInvalidMsg, ToolTipIcon.Warning);
+      
+      foreach (UniversalHook hookInList in hookList)
+        hookInList.KeyIntercepted += new UniversalHook.HookEventHandler(OnKeyInterceptedHandler);
 
-            if (System.IO.File.Exists(this.filePath))
-                LoadCounter(this.filePath);
+      hookEnabled = true;
+      timerUpdateUpTime.Interval = updateUpTimePeriodMs;
+      timerUpdateUpTime.Enabled = true;
 
-            foreach (UniversalHook hookInList in hookList)
-                hookInList.KeyIntercepted += new UniversalHook.HookEventHandler(OnKeyInterceptedHandler);
+      if (Properties.Settings.Default.firstStart == true)
+      {
+        ShowBalloon("KeyCounter runs and is counting...", ToolTipIcon.Info);
+        Properties.Settings.Default.firstStart = false;
+      }
 
-            hookEnabled = true;
-            timerUpdateUpTime.Interval = updateUpTimePeriodMs;
-            timerUpdateUpTime.Enabled = true;
-            
-            if (Properties.Settings.Default.firstStart == true)
-            {
-                showBalloon("KeyCounter runs and is counting...", ToolTipIcon.Info);
-                Properties.Settings.Default.firstStart = false;
-            }
-
-            Debug("Counter started", DebugLevel.Info);
-            Debug("thread-id " + System.Threading.Thread.CurrentThread.ManagedThreadId.ToString(), DebugLevel.Debug);
-        }
-
-        private Dictionary<int, string> GenerateKeyTable()
-        {
-            Dictionary<int, string> output = new Dictionary<int, string>();
-
-            string[] keyNames = Enum.GetNames(typeof(System.Windows.Forms.Keys));
-            Array keyValues = Enum.GetValues(typeof(System.Windows.Forms.Keys));
-
-            for (int index = 0; index < keyNames.Length; index++)
-            {
-                if (!output.ContainsKey((int)keyValues.GetValue(index)))
-                    output.Add((int)keyValues.GetValue(index), keyNames[index]);
-            }
-
-            return output;
-        }
-
-        private void LoadCounter(string filePath)
-        {
-            Debug("loading from " + filePath, DebugLevel.Info);
-            bool hookWasEnabled = this.hookEnabled;
-            this.hookEnabled = false;
-            this.counterEngine.ReadBinary(filePath);
-            this.hookEnabled = hookWasEnabled;
-        }
-
-        private void SaveCounter(string filePath)
-        {
-            Debug("saving to " + filePath, DebugLevel.Info);
-            bool hookWasEnabled = this.hookEnabled;
-            this.hookEnabled = false;
-            this.counterEngine.SaveBinary(filePath);
-            this.hookEnabled = hookWasEnabled;
-        }
-
-        private void OnKeyInterceptedHandler(UniversalHook.HookEventArgs e)
-        {
-            if (hookEnabled)
-                counterEngine.countTab.Count(DateTime.Now.Date, e.vkCode, 1);
-        }
-
-        private void Debug(string msg, DebugLevel msgLevel)
-        {
-            if (this.textDebugger != null)
-                textDebugger.Debug(msg, msgLevel);
-        }
-
-        private void PreExit()
-        {
-            SaveCounter(filePath);
-        }
-
-        private void UpdateGui()
-        {
-            if (this.hookEnabled)
-            {
-                startstopCountingToolStripMenuItem.Text = "Stop counting";
-                notifyIconKeyCounter.Icon = iconOn;
-                startstopCountingToolStripMenuItem.Image = iconOff.ToBitmap();
-            }
-            else
-            {
-                startstopCountingToolStripMenuItem.Text = "Start counting";
-                notifyIconKeyCounter.Icon = iconOff;
-                startstopCountingToolStripMenuItem.Image = iconOn.ToBitmap();
-            }
-
-            openDebugWindowToolStripMenuItem.Visible = debugMode;
-            fillCountTabToolStripMenuItem.Visible = debugMode;
-        }
-
-        private void FormMain_Load(object sender, EventArgs e)
-        {
-            Debug("FormMain loaded, we are in " + (debugMode ? "debug" : "release") + " mode", DebugLevel.Debug);
-            notifyIconKeyCounter.Visible = true;
-            Visible = false;
-            UpdateGui();
-        }
-
-        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            PreExit();
-        }
-
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            PreExit();
-            Close();
-        }
-
-        private void startstopCountingToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.hookEnabled = !this.hookEnabled;
-            UpdateGui();
-        }
-
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AboutBox about = new AboutBox();
-            about.ShowDialog();
-        }
-
-        private void displayToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            bool hookWasEnabled = this.hookEnabled;
-
-            this.hookEnabled = false;
-            //counterEngine.SaveBinary(this.filePath);
-            FormDisplay formDisplay = new FormDisplay(this.textDebugger, this.counterEngine);
-            formDisplay.ShowDialog();
-
-            this.hookEnabled = hookWasEnabled;
-        }
-
-        private void openDebugWindowToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.formDebug.Show();
-        }
-
-        private void fillCountTabToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            int dayCount = 400;
-
-            Random randomGen = new Random();
-            DateTime dateTimeBuffer = DateTime.Now - new TimeSpan(dayCount + 1, 0, 0, 0);
-            List<int> keyIdList;
-
-            counterEngine.lastReset = dateTimeBuffer;
-
-            int keyCount = counterEngine.keyTab.RowCount();
-            Debug("fill the counttab", DebugLevel.Info);
-            Debug(keyCount.ToString() + " keys in keyTab", DebugLevel.Debug);
-
-            keyIdList = counterEngine.keyTab.KeyIdList();
-
-            for (int dayIndex = 0; dayIndex < dayCount; dayIndex++)
-            {
-                for (int keyIdIndex = 0; keyIdIndex < counterEngine.keyTab.RowCount(); keyIdIndex++)
-                    counterEngine.Count(dateTimeBuffer, keyIdList[keyIdIndex], (uint)10 + (uint)dayIndex);
-
-                dateTimeBuffer = dateTimeBuffer.AddDays(1);
-            }
-
-            Debug("counttab filled with " + counterEngine.countTab.RowCount() + " rows", DebugLevel.Debug);
-        }
-
-        private void resetCounterToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Do you really want to reset the counter?", "KeyCounter", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-            {
-                counterEngine.ClearCounter();
-                counterEngine.SaveBinary(this.filePath);
-            }
-        }
-
-        private void timerUpdateUpTime_Tick(object sender, EventArgs e)
-        {
-            counterEngine.UpdateUpTime(updateUpTimePeriodMs);
-        }
-
-        private void showBalloon(string msg, ToolTipIcon icon)
-        {
-            notifyIconKeyCounter.ShowBalloonTip(1000, "KeyCounter", msg, icon);
-        }
+      Debug("KeyCounter started", DebugLevel.Info);
+      Debug("FormMain loaded, we are in " + (debugModeEnabled ? "debug" : "release") + " mode", DebugLevel.Debug);
+      notifyIconKeyCounter.Visible = true;
+      Visible = false;
+      UpdateGui();
     }
+
+    private void ReadSettings ()
+    {
+      this.debugModeEnabled = Properties.Settings.Default.debugModeEnabled;
+      this.firstStart = Properties.Settings.Default.firstStart;
+      this.logfilePath = Properties.Settings.Default.logfilePath;
+      this.logfileName = Properties.Settings.Default.logfileName;
+      this.logfileDefaultExtension = Properties.Settings.Default.logfileDefaultExtension;
+      this.registryAutostartKey = Properties.Settings.Default.registryAutostartKey;
+      this.registryAutostartName = Properties.Settings.Default.registryAutostartName;
+
+      if (this.logfilePath.Length == 0)
+        this.logfilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);    
+    }
+
+    private void WriteSettings ()
+    {
+      Properties.Settings.Default.firstStart = this.firstStart;
+      Properties.Settings.Default.logfilePath = this.logfilePath;
+      Properties.Settings.Default.logfileName = this.logfileName;
+    }
+
+    private Dictionary<int, string> GenerateKeyTable ()
+    {
+      Dictionary<int, string> output = new Dictionary<int, string>();
+
+      string[] keyNames = Enum.GetNames(typeof(System.Windows.Forms.Keys));
+      Array keyValues = Enum.GetValues(typeof(System.Windows.Forms.Keys));
+
+      for (int index = 0; index < keyNames.Length; index++)
+      {
+        if (!output.ContainsKey((int)keyValues.GetValue(index)))
+          output.Add((int)keyValues.GetValue(index), keyNames[index]);
+      }
+
+      return output;
+    }
+
+    private bool LoadCounter ()
+    {
+      Debug("FormMain.LoadCounter: reading from \"" + this.LogfileCompletePath + "\"", DebugLevel.Info);
+      
+      if (!System.IO.File.Exists(this.LogfileCompletePath))
+      {
+        Debug("FormMain.LoadCounter: Logfile does not exist", DebugLevel.Info);
+        return true;
+      }
+
+      FileAccessError accessResult = this.counterEngine.fileAccessChecker.CheckPathName(this.logfilePath, this.logfileName);
+
+      if (accessResult != FileAccessError.None)
+      {
+        Debug("FormMain.LoadCounter: FileAccessError=" + accessResult.ToString(), DebugLevel.Warning);
+        return false;
+      }
+      
+      bool hookWasEnabled = this.hookEnabled;
+      this.hookEnabled = false;
+      this.counterEngine.ReadBinary(LogfileCompletePath);
+      this.hookEnabled = hookWasEnabled;
+      return true;
+    }
+
+    private bool SaveCounter (string filePath)
+    {
+      Debug("FormMain.SaveCounter: saving to \"" + this.LogfileCompletePath + "\"", DebugLevel.Info);
+
+      FileAccessError accessResult = this.counterEngine.fileAccessChecker.CheckPathName(this.logfilePath, this.logfileName);
+
+      if (accessResult != FileAccessError.None)
+      {
+        Debug("FormMain.SaveCounter: FileAccessError=" + accessResult.ToString(), DebugLevel.Warning);
+        return false;
+      }
+      
+      bool hookWasEnabled = this.hookEnabled;
+      this.hookEnabled = false;
+      this.counterEngine.SaveBinary(LogfileCompletePath);
+      this.hookEnabled = hookWasEnabled;
+      return true;
+    }
+
+    private void OnKeyInterceptedHandler (UniversalHook.HookEventArgs e)
+    {
+      if (hookEnabled)
+        counterEngine.countTab.Count(DateTime.Now.Date, e.vkCode, 1);
+    }
+
+    private void Debug (string msg, DebugLevel msgLevel)
+    {
+      if (this.textDebugger != null)
+        textDebugger.Debug(msg, msgLevel);
+    }
+
+    private string LogfileCompletePath { get { return this.logfilePath + "\\" + this.logfileName; } }
+    
+    private void PreExit ()
+    {
+      SaveCounter(LogfileCompletePath);
+      WriteSettings();
+      Properties.Settings.Default.Save();
+    }
+
+    private void UpdateGui ()
+    {
+      if (this.hookEnabled)
+      {
+        startstopCountingToolStripMenuItem.Text = "Stop counting";
+        notifyIconKeyCounter.Icon = iconOn;
+        startstopCountingToolStripMenuItem.Image = iconOff.ToBitmap();
+        notifyIconKeyCounter.Text = "KeyCounter running";
+      }
+      else
+      {
+        startstopCountingToolStripMenuItem.Text = "Start counting";
+        notifyIconKeyCounter.Icon = iconOff;
+        startstopCountingToolStripMenuItem.Image = iconOn.ToBitmap();
+        notifyIconKeyCounter.Text = "KeyCounter stopped";
+      }
+
+      openDebugWindowToolStripMenuItem.Visible = debugModeEnabled;
+      fillCountTabToolStripMenuItem.Visible = debugModeEnabled;
+    }
+
+    private void FormMain_FormClosing (object sender, FormClosingEventArgs e)
+    {
+      PreExit();
+    }
+
+    private void exitToolStripMenuItem_Click (object sender, EventArgs e)
+    {
+      PreExit();
+      Close();
+    }
+
+    private void startstopCountingToolStripMenuItem_Click (object sender, EventArgs e)
+    {
+      this.hookEnabled = !this.hookEnabled;
+      UpdateGui();
+    }
+
+    private void aboutToolStripMenuItem_Click (object sender, EventArgs e)
+    {
+      this.NotifyIconEnabled = false;
+      AboutBox about = new AboutBox();
+      about.ShowDialog();
+      this.NotifyIconEnabled = true;
+    }
+
+    private void displayToolStripMenuItem_Click (object sender, EventArgs e)
+    {
+      bool hookWasEnabled = this.hookEnabled;
+
+      this.hookEnabled = false;
+      this.NotifyIconEnabled = false;
+      FormDisplay formDisplay = new FormDisplay(this.textDebugger, this.counterEngine);
+      formDisplay.ShowDialog();
+      this.NotifyIconEnabled = true;
+
+      this.hookEnabled = hookWasEnabled;
+    }
+
+    private void openDebugWindowToolStripMenuItem_Click (object sender, EventArgs e)
+    {
+      this.formDebug.Show();
+    }
+
+    private void fillCountTabToolStripMenuItem_Click (object sender, EventArgs e)
+    {
+      int dayCount = 400;
+
+      Random randomGen = new Random();
+      DateTime dateTimeBuffer = DateTime.Now - new TimeSpan(dayCount + 1, 0, 0, 0);
+      List<int> keyIdList;
+
+      counterEngine.lastReset = dateTimeBuffer;
+
+      int keyCount = counterEngine.keyTab.RowCount();
+      Debug("fill the counttab", DebugLevel.Info);
+      Debug(keyCount.ToString() + " keys in keyTab", DebugLevel.Debug);
+
+      keyIdList = counterEngine.keyTab.KeyIdList();
+
+      for (int dayIndex = 0; dayIndex < dayCount; dayIndex++)
+      {
+        for (int keyIdIndex = 0; keyIdIndex < counterEngine.keyTab.RowCount(); keyIdIndex++)
+          counterEngine.Count(dateTimeBuffer, keyIdList[keyIdIndex], (uint)10 + (uint)dayIndex);
+
+        dateTimeBuffer = dateTimeBuffer.AddDays(1);
+      }
+
+      Debug("counttab filled with " + counterEngine.countTab.RowCount() + " rows", DebugLevel.Debug);
+    }
+
+    private void resetCounterToolStripMenuItem_Click (object sender, EventArgs e)
+    {
+      if (MessageBox.Show("Do you really want to reset the counter?", "KeyCounter", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+      {
+        counterEngine.ClearCounter();
+        counterEngine.SaveBinary(LogfileCompletePath);
+      }
+    }
+
+    private void timerUpdateUpTime_Tick (object sender, EventArgs e)
+    {
+      counterEngine.UpdateUpTime(updateUpTimePeriodMs);
+    }
+
+    private void ShowBalloon (string msg, ToolTipIcon icon)
+    {
+      notifyIconKeyCounter.ShowBalloonTip(1000, "KeyCounter", msg, icon);
+    }
+
+    private bool NotifyIconEnabled
+    {
+      get { return contextMenuStripNotify.Enabled; }
+      set { contextMenuStripNotify.Enabled = value; }
+    }
+
+    private bool ReadAutostartSetting ()
+    {
+      Debug("FormMain.ReadAutostartSetting", DebugLevel.Debug);
+
+      bool bFoundAutostart = false;
+      RegistryKey regHKCU = Registry.CurrentUser;
+      RegistryKey regRun = regHKCU.OpenSubKey(this.registryAutostartKey, false);
+      object regValue = regRun.GetValue(this.registryAutostartName);
+
+      if (regValue != null)
+      {
+        bFoundAutostart = true;
+        Debug("FormMain.ReadAutostartSetting: found autostart \"" + regValue.ToString() + "\"", DebugLevel.Debug);
+      }
+      else
+        Debug("FormMaion.ReadAutostartSetting: no autostart found", DebugLevel.Debug);
+
+      regRun.Close();
+      regHKCU.Close();
+
+      return bFoundAutostart;
+    }
+
+    private void WriteAutostartSetting (bool autostartEnabled)
+    {
+      Debug("FormMain.WriteAutostartSetting", DebugLevel.Debug);
+      Debug("FormMain.WriteAutostartSetting: path=\"" + System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase + "\"", DebugLevel.Debug);
+      Debug("FormMain.WriteAutostartSetting: fullname=\"" + System.Reflection.Assembly.GetExecutingAssembly().FullName, DebugLevel.Debug);
+
+      RegistryKey regHKCU = Registry.CurrentUser;
+      RegistryKey regRun = regHKCU.OpenSubKey(this.registryAutostartKey, true);
+
+      if (autostartEnabled)
+        regRun.SetValue(registryAutostartName, System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
+      else
+        regRun.DeleteValue(registryAutostartName);
+    }
+    
+    private void optionsToolStripMenuItem_Click (object sender, EventArgs e)
+    {
+      FormOptionsParameters currParams = new FormOptionsParameters();
+      currParams.autostartEnabled = ReadAutostartSetting();
+      currParams.logfileDefaultExtension = this.logfileDefaultExtension;
+      currParams.logfileName = this.logfileName;
+      currParams.logfilePath = this.logfilePath;
+
+      FormOptions formOptions = new FormOptions(currParams, this.counterEngine.fileAccessChecker);
+      this.NotifyIconEnabled = false;
+      formOptions.ShowDialog();
+      DialogResult dialogResult = formOptions.Result;
+
+      if (dialogResult == DialogResult.OK)
+      {
+        FormOptionsParameters newParams = formOptions.Parameters;
+        WriteAutostartSetting(newParams.autostartEnabled);
+        this.logfileDefaultExtension = newParams.logfileDefaultExtension;
+        this.logfileName = newParams.logfileName;
+        this.logfilePath = newParams.logfilePath;
+      }
+
+      this.NotifyIconEnabled = true;
+    }
+  }
 }

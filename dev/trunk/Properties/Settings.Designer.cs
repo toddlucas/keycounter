@@ -25,19 +25,22 @@ namespace KeyCounter.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool debugModeEnabled {
             get {
                 return ((bool)(this["debugModeEnabled"]));
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("keycounter.bin")]
-        public string fileName {
+        public string logfileName {
             get {
-                return ((string)(this["fileName"]));
+                return ((string)(this["logfileName"]));
+            }
+            set {
+                this["logfileName"] = value;
             }
         }
         
@@ -50,6 +53,45 @@ namespace KeyCounter.Properties {
             }
             set {
                 this["firstStart"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string logfilePath {
+            get {
+                return ((string)(this["logfilePath"]));
+            }
+            set {
+                this["logfilePath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".bin")]
+        public string logfileDefaultExtension {
+            get {
+                return ((string)(this["logfileDefaultExtension"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("KeyCounter")]
+        public string registryAutostartName {
+            get {
+                return ((string)(this["registryAutostartName"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Software\\Microsoft\\Windows\\CurrentVersion\\Run")]
+        public string registryAutostartKey {
+            get {
+                return ((string)(this["registryAutostartKey"]));
             }
         }
     }

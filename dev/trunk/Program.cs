@@ -68,4 +68,18 @@ namespace KeyCounter
     Info = 4,
     Debug = 5
   }
+
+  public interface IFileAccessChecker
+  {
+    FileAccessError CheckPathName (string path, string name);
+  }
+
+  public enum FileAccessError
+  {
+    None,
+    DirectoryNotValid,
+    FilenameNotValid,
+    Unauthorized,
+    IllegalCharacter
+  }
 }

@@ -28,6 +28,7 @@ namespace KeyCounter
     /// </summary>
     private void InitializeComponent()
     {
+      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormDebug));
       this.buttonDebugClear = new System.Windows.Forms.Button();
       this.richTextBoxDebug = new System.Windows.Forms.RichTextBox();
       this.buttonDebugClose = new System.Windows.Forms.Button();
@@ -113,9 +114,11 @@ namespace KeyCounter
       this.ControlBox = false;
       this.Controls.Add(this.tableLayoutPanel1);
       this.Controls.Add(this.toolStrip1);
+      this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       this.MaximizeBox = false;
       this.MinimizeBox = false;
       this.Name = "FormDebug";
+      this.ShowInTaskbar = false;
       this.Text = "Debug";
       this.toolStrip1.ResumeLayout(false);
       this.toolStrip1.PerformLayout();
