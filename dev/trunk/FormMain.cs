@@ -73,10 +73,10 @@ namespace KeyCounter
       timerUpdateUpTime.Interval = updateUpTimePeriodMs;
       timerUpdateUpTime.Enabled = true;
 
-      if (Properties.Settings.Default.firstStart == true)
+      if (this.firstStart)
       {
         ShowBalloon("KeyCounter runs and is counting...", ToolTipIcon.Info);
-        Properties.Settings.Default.firstStart = false;
+        this.firstStart = false;
       }
 
       Debug("FormMain: KeyCounter started", DebugLevel.Info);
@@ -335,7 +335,14 @@ namespace KeyCounter
       if (autostartEnabled)
         regRun.SetValue(registryAutostartName, System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
       else
-        regRun.DeleteValue(registryAutostartName);
+      {
+        object regValue = regRun.GetValue(this.registryAutostartName);        
+        if (regValue != null)
+          regRun.DeleteValue(registryAutostartName);
+      }
+
+      regRun.Close();
+      regHKCU.Close();
     }
     
     private void optionsToolStripMenuItem_Click (object sender, EventArgs e)
