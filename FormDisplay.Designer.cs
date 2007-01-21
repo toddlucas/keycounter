@@ -121,7 +121,7 @@ namespace KeyCounter
       this.tabPageDaily.Location = new System.Drawing.Point(4, 22);
       this.tabPageDaily.Name = "tabPageDaily";
       this.tabPageDaily.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPageDaily.Size = new System.Drawing.Size(651, 437);
+      this.tabPageDaily.Size = new System.Drawing.Size(592, 421);
       this.tabPageDaily.TabIndex = 1;
       this.tabPageDaily.Text = "Daily reports";
       this.tabPageDaily.UseVisualStyleBackColor = true;
@@ -135,7 +135,7 @@ namespace KeyCounter
       this.dataGridViewDaily.Location = new System.Drawing.Point(3, 3);
       this.dataGridViewDaily.Name = "dataGridViewDaily";
       this.dataGridViewDaily.ReadOnly = true;
-      this.dataGridViewDaily.Size = new System.Drawing.Size(645, 431);
+      this.dataGridViewDaily.Size = new System.Drawing.Size(586, 415);
       this.dataGridViewDaily.TabIndex = 2;
       // 
       // tabPageWeekly
@@ -144,7 +144,7 @@ namespace KeyCounter
       this.tabPageWeekly.Location = new System.Drawing.Point(4, 22);
       this.tabPageWeekly.Name = "tabPageWeekly";
       this.tabPageWeekly.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPageWeekly.Size = new System.Drawing.Size(651, 437);
+      this.tabPageWeekly.Size = new System.Drawing.Size(592, 421);
       this.tabPageWeekly.TabIndex = 2;
       this.tabPageWeekly.Text = "Weekly reports";
       this.tabPageWeekly.UseVisualStyleBackColor = true;
@@ -158,7 +158,7 @@ namespace KeyCounter
       this.dataGridViewWeekly.Location = new System.Drawing.Point(3, 3);
       this.dataGridViewWeekly.Name = "dataGridViewWeekly";
       this.dataGridViewWeekly.ReadOnly = true;
-      this.dataGridViewWeekly.Size = new System.Drawing.Size(645, 431);
+      this.dataGridViewWeekly.Size = new System.Drawing.Size(586, 415);
       this.dataGridViewWeekly.TabIndex = 2;
       // 
       // tabPageMonthly
@@ -167,7 +167,7 @@ namespace KeyCounter
       this.tabPageMonthly.Location = new System.Drawing.Point(4, 22);
       this.tabPageMonthly.Name = "tabPageMonthly";
       this.tabPageMonthly.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPageMonthly.Size = new System.Drawing.Size(651, 437);
+      this.tabPageMonthly.Size = new System.Drawing.Size(592, 421);
       this.tabPageMonthly.TabIndex = 3;
       this.tabPageMonthly.Text = "Monthly reports";
       this.tabPageMonthly.UseVisualStyleBackColor = true;
@@ -181,7 +181,7 @@ namespace KeyCounter
       this.dataGridViewMonthly.Location = new System.Drawing.Point(3, 3);
       this.dataGridViewMonthly.Name = "dataGridViewMonthly";
       this.dataGridViewMonthly.ReadOnly = true;
-      this.dataGridViewMonthly.Size = new System.Drawing.Size(645, 431);
+      this.dataGridViewMonthly.Size = new System.Drawing.Size(586, 415);
       this.dataGridViewMonthly.TabIndex = 2;
       // 
       // tabPagePerKey
@@ -190,7 +190,7 @@ namespace KeyCounter
       this.tabPagePerKey.Location = new System.Drawing.Point(4, 22);
       this.tabPagePerKey.Name = "tabPagePerKey";
       this.tabPagePerKey.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPagePerKey.Size = new System.Drawing.Size(651, 437);
+      this.tabPagePerKey.Size = new System.Drawing.Size(592, 421);
       this.tabPagePerKey.TabIndex = 4;
       this.tabPagePerKey.Text = "Reports per key";
       this.tabPagePerKey.UseVisualStyleBackColor = true;
@@ -204,7 +204,7 @@ namespace KeyCounter
       this.dataGridViewPerKey.Location = new System.Drawing.Point(3, 3);
       this.dataGridViewPerKey.Name = "dataGridViewPerKey";
       this.dataGridViewPerKey.ReadOnly = true;
-      this.dataGridViewPerKey.Size = new System.Drawing.Size(645, 431);
+      this.dataGridViewPerKey.Size = new System.Drawing.Size(586, 415);
       this.dataGridViewPerKey.TabIndex = 2;
       // 
       // tabPageCustom
@@ -213,7 +213,7 @@ namespace KeyCounter
       this.tabPageCustom.Location = new System.Drawing.Point(4, 22);
       this.tabPageCustom.Name = "tabPageCustom";
       this.tabPageCustom.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPageCustom.Size = new System.Drawing.Size(651, 437);
+      this.tabPageCustom.Size = new System.Drawing.Size(592, 421);
       this.tabPageCustom.TabIndex = 5;
       this.tabPageCustom.Text = "Custom";
       this.tabPageCustom.UseVisualStyleBackColor = true;
@@ -236,7 +236,7 @@ namespace KeyCounter
       this.tableLayoutPanelCustom.RowCount = 2;
       this.tableLayoutPanelCustom.RowStyles.Add(new System.Windows.Forms.RowStyle());
       this.tableLayoutPanelCustom.RowStyles.Add(new System.Windows.Forms.RowStyle());
-      this.tableLayoutPanelCustom.Size = new System.Drawing.Size(645, 431);
+      this.tableLayoutPanelCustom.Size = new System.Drawing.Size(586, 415);
       this.tableLayoutPanelCustom.TabIndex = 3;
       // 
       // dataGridViewCustom
@@ -248,7 +248,7 @@ namespace KeyCounter
       this.dataGridViewCustom.Location = new System.Drawing.Point(3, 49);
       this.dataGridViewCustom.Name = "dataGridViewCustom";
       this.dataGridViewCustom.ReadOnly = true;
-      this.dataGridViewCustom.Size = new System.Drawing.Size(639, 379);
+      this.dataGridViewCustom.Size = new System.Drawing.Size(580, 379);
       this.dataGridViewCustom.TabIndex = 2;
       // 
       // flowLayoutPanelCustomStartDate
@@ -260,7 +260,7 @@ namespace KeyCounter
       this.flowLayoutPanelCustomStartDate.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
       this.flowLayoutPanelCustomStartDate.Location = new System.Drawing.Point(3, 3);
       this.flowLayoutPanelCustomStartDate.Name = "flowLayoutPanelCustomStartDate";
-      this.flowLayoutPanelCustomStartDate.Size = new System.Drawing.Size(155, 39);
+      this.flowLayoutPanelCustomStartDate.Size = new System.Drawing.Size(140, 39);
       this.flowLayoutPanelCustomStartDate.TabIndex = 3;
       // 
       // labelCustomStartDate
@@ -288,9 +288,9 @@ namespace KeyCounter
       this.flowLayoutPanelCustomEndDate.Controls.Add(this.labelCustomEndDate);
       this.flowLayoutPanelCustomEndDate.Controls.Add(this.dateTimePickerCustomEndDate);
       this.flowLayoutPanelCustomEndDate.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-      this.flowLayoutPanelCustomEndDate.Location = new System.Drawing.Point(164, 3);
+      this.flowLayoutPanelCustomEndDate.Location = new System.Drawing.Point(149, 3);
       this.flowLayoutPanelCustomEndDate.Name = "flowLayoutPanelCustomEndDate";
-      this.flowLayoutPanelCustomEndDate.Size = new System.Drawing.Size(155, 39);
+      this.flowLayoutPanelCustomEndDate.Size = new System.Drawing.Size(140, 39);
       this.flowLayoutPanelCustomEndDate.TabIndex = 4;
       // 
       // labelCustomEndDate
@@ -318,9 +318,9 @@ namespace KeyCounter
       this.flowLayoutPanelCustomGroupBy.Controls.Add(this.labelCustomGroupBy);
       this.flowLayoutPanelCustomGroupBy.Controls.Add(this.comboBoxCustomGroupBy);
       this.flowLayoutPanelCustomGroupBy.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-      this.flowLayoutPanelCustomGroupBy.Location = new System.Drawing.Point(325, 3);
+      this.flowLayoutPanelCustomGroupBy.Location = new System.Drawing.Point(295, 3);
       this.flowLayoutPanelCustomGroupBy.Name = "flowLayoutPanelCustomGroupBy";
-      this.flowLayoutPanelCustomGroupBy.Size = new System.Drawing.Size(155, 40);
+      this.flowLayoutPanelCustomGroupBy.Size = new System.Drawing.Size(140, 40);
       this.flowLayoutPanelCustomGroupBy.TabIndex = 5;
       // 
       // labelCustomGroupBy
@@ -349,7 +349,7 @@ namespace KeyCounter
       // buttonCustomUpdate
       // 
       this.buttonCustomUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-      this.buttonCustomUpdate.Location = new System.Drawing.Point(567, 20);
+      this.buttonCustomUpdate.Location = new System.Drawing.Point(508, 20);
       this.buttonCustomUpdate.Name = "buttonCustomUpdate";
       this.buttonCustomUpdate.Size = new System.Drawing.Size(75, 23);
       this.buttonCustomUpdate.TabIndex = 6;
@@ -389,6 +389,7 @@ namespace KeyCounter
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(606, 482);
+      this.ControlBox = false;
       this.Controls.Add(this.tableLayoutPanelReports);
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       this.MaximizeBox = false;

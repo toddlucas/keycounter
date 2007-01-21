@@ -3,13 +3,25 @@
   <Profiles />
   <Settings>
     <Setting Name="debugModeEnabled" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="fileName" Type="System.String" Scope="Application">
+    <Setting Name="logfileName" Type="System.String" Scope="User">
       <Value Profile="(Default)">keycounter.bin</Value>
     </Setting>
     <Setting Name="firstStart" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="logfilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="logfileDefaultExtension" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">.bin</Value>
+    </Setting>
+    <Setting Name="registryAutostartName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">KeyCounter</Value>
+    </Setting>
+    <Setting Name="registryAutostartKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Software\Microsoft\Windows\CurrentVersion\Run</Value>
     </Setting>
   </Settings>
 </SettingsFile>
