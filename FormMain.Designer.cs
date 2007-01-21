@@ -35,13 +35,13 @@ namespace KeyCounter
       this.fillCountTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.openDebugWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.displayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.startstopCountingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.resetCounterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
       this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.timerUpdateUpTime = new System.Windows.Forms.Timer(this.components);
-      this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.contextMenuStripNotify.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -65,7 +65,7 @@ namespace KeyCounter
             this.aboutToolStripMenuItem,
             this.exitToolStripMenuItem});
       this.contextMenuStripNotify.Name = "contextMenuStripNotify";
-      this.contextMenuStripNotify.Size = new System.Drawing.Size(184, 208);
+      this.contextMenuStripNotify.Size = new System.Drawing.Size(184, 186);
       // 
       // fillCountTabToolStripMenuItem
       // 
@@ -88,6 +88,14 @@ namespace KeyCounter
       this.displayToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
       this.displayToolStripMenuItem.Text = "Display";
       this.displayToolStripMenuItem.Click += new System.EventHandler(this.displayToolStripMenuItem_Click);
+      // 
+      // optionsToolStripMenuItem
+      // 
+      this.optionsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("optionsToolStripMenuItem.Image")));
+      this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+      this.optionsToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+      this.optionsToolStripMenuItem.Text = "Options";
+      this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
       // 
       // startstopCountingToolStripMenuItem
       // 
@@ -129,14 +137,6 @@ namespace KeyCounter
       // timerUpdateUpTime
       // 
       this.timerUpdateUpTime.Tick += new System.EventHandler(this.timerUpdateUpTime_Tick);
-      // 
-      // optionsToolStripMenuItem
-      // 
-      this.optionsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("optionsToolStripMenuItem.Image")));
-      this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-      this.optionsToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-      this.optionsToolStripMenuItem.Text = "Options";
-      this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
       // 
       // FormMain
       // 
