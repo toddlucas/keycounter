@@ -60,27 +60,6 @@ namespace KeyCounter.Properties {
             }
         }
         
-        internal static System.Drawing.Icon about {
-            get {
-                object obj = ResourceManager.GetObject("about", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Icon display {
-            get {
-                object obj = ResourceManager.GetObject("display", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Icon exit {
-            get {
-                object obj = ResourceManager.GetObject("exit", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
         internal static System.Drawing.Icon icon_keyb {
             get {
                 object obj = ResourceManager.GetObject("icon_keyb", resourceCulture);
