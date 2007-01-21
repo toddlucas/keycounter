@@ -79,7 +79,7 @@ namespace KeyCounter
         Properties.Settings.Default.firstStart = false;
       }
 
-      Debug("KeyCounter started", DebugLevel.Info);
+      Debug("FormMain: KeyCounter started", DebugLevel.Info);
       Debug("FormMain loaded, we are in " + (debugModeEnabled ? "debug" : "release") + " mode", DebugLevel.Debug);
       notifyIconKeyCounter.Visible = true;
       Visible = false;
@@ -263,7 +263,7 @@ namespace KeyCounter
       counterEngine.lastReset = dateTimeBuffer;
 
       int keyCount = counterEngine.keyTab.RowCount();
-      Debug("fill the counttab", DebugLevel.Info);
+      Debug("FormMain: fill the counttab", DebugLevel.Info);
       Debug(keyCount.ToString() + " keys in keyTab", DebugLevel.Debug);
 
       keyIdList = counterEngine.keyTab.KeyIdList();
@@ -306,8 +306,6 @@ namespace KeyCounter
 
     private bool ReadAutostartSetting ()
     {
-      Debug("FormMain.ReadAutostartSetting", DebugLevel.Debug);
-
       bool bFoundAutostart = false;
       RegistryKey regHKCU = Registry.CurrentUser;
       RegistryKey regRun = regHKCU.OpenSubKey(this.registryAutostartKey, false);
@@ -330,8 +328,6 @@ namespace KeyCounter
     private void WriteAutostartSetting (bool autostartEnabled)
     {
       Debug("FormMain.WriteAutostartSetting", DebugLevel.Debug);
-      Debug("FormMain.WriteAutostartSetting: path=\"" + System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase + "\"", DebugLevel.Debug);
-      Debug("FormMain.WriteAutostartSetting: fullname=\"" + System.Reflection.Assembly.GetExecutingAssembly().FullName, DebugLevel.Debug);
 
       RegistryKey regHKCU = Registry.CurrentUser;
       RegistryKey regRun = regHKCU.OpenSubKey(this.registryAutostartKey, true);
