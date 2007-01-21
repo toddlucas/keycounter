@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="debugModeEnabled" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="logfileName" Type="System.String" Scope="User">
       <Value Profile="(Default)">keycounter.bin</Value>
