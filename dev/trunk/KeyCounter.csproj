@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>KeyCounter</RootNamespace>
     <AssemblyName>KeyCounter</AssemblyName>
-    <ApplicationIcon>res\icon keyb.ICO</ApplicationIcon>
+    <ApplicationIcon>res\keyboard_on.ico</ApplicationIcon>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <ManifestCertificateThumbprint>E7A4104F4C8986EBD177961A5C51BBB6C04FFF7E</ManifestCertificateThumbprint>
@@ -138,11 +138,13 @@
     <BaseApplicationManifest Include="Properties\app.manifest" />
     <None Include="res\about.ICO" />
     <None Include="res\display.ICO" />
-    <None Include="res\exit.ICO" />
     <Content Include="GPLv2.txt" />
-    <Content Include="res\icon keyb.ICO" />
+    <None Include="res\keyboard_off.ico" />
+    <None Include="res\keyboard_on.ico" />
+    <None Include="res\icon_exit.ico" />
     <Content Include="res\keycounter_about.png" />
-    <None Include="res\keyb_off.ico" />
+    <None Include="res\options.ico" />
+    <None Include="res\reset.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">

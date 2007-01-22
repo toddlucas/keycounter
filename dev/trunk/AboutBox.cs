@@ -23,9 +23,10 @@ namespace KeyCounter
 {
   partial class AboutBox : Form
   {
-    public AboutBox ()
+		public AboutBox ()
     {
       InitializeComponent();
+			this.Icon = KeyCounterIcons.iconKeyboardOn;
 
       //  Initialize the AboutBox to display the product information from the assembly information.
       //  Change assembly information settings for your application through either:

@@ -22,85 +22,86 @@ using System.Windows.Forms;
 
 namespace KeyCounter
 {
-  public partial class FormDebug : Form, ITextDebugger
-  {
-    private DebugLevel debugLevel = DebugLevel.Debug;
-    
-    public FormDebug()
-    {
-      InitializeComponent();
-    }
+	public partial class FormDebug : Form, ITextDebugger
+	{
+		private DebugLevel debugLevel = DebugLevel.Debug;
 
-    private void buttonDebugClear_Click(object sender, EventArgs e)
-    {
-      richTextBoxDebug.Clear();
-    }
+		public FormDebug ()
+		{
+			InitializeComponent();
+			this.Icon = KeyCounterIcons.iconKeyboardOn;
+		}
 
-    private void buttonDebugClose_Click(object sender, EventArgs e)
-    {
-      this.Hide();
-    }
+		private void buttonDebugClear_Click (object sender, EventArgs e)
+		{
+			richTextBoxDebug.Clear();
+		}
 
-    public void Debug(string msg)
-    {
-      Debug(msg, DebugLevel.Debug);
-    }
+		private void buttonDebugClose_Click (object sender, EventArgs e)
+		{
+			this.Hide();
+		}
 
-    public void Debug(string msg, DebugLevel msgLevel)
-    {
-      if ((msgLevel == DebugLevel.None) || (msgLevel>debugLevel))
-        return;
+		public void Debug (string msg)
+		{
+			Debug(msg, DebugLevel.Debug);
+		}
 
-      Font oldFont = richTextBoxDebug.SelectionFont;
-      Color oldForeColor = richTextBoxDebug.SelectionColor;
-      Font newFont = oldFont;
-      Color newForeColor = oldForeColor;
+		public void Debug (string msg, DebugLevel msgLevel)
+		{
+			if ((msgLevel == DebugLevel.None) || (msgLevel > debugLevel))
+				return;
 
-      switch (msgLevel)
-      {
-        case DebugLevel.Critical:
-          newFont = new Font(oldFont, FontStyle.Bold);
-          newForeColor = Color.Red;
-          break;
+			Font oldFont = richTextBoxDebug.SelectionFont;
+			Color oldForeColor = richTextBoxDebug.SelectionColor;
+			Font newFont = oldFont;
+			Color newForeColor = oldForeColor;
 
-        case DebugLevel.Error:
-          newFont = new Font(oldFont, FontStyle.Regular);
-          newForeColor = Color.Red;
-          break;
+			switch (msgLevel)
+			{
+				case DebugLevel.Critical:
+					newFont = new Font(oldFont, FontStyle.Bold);
+					newForeColor = Color.Red;
+					break;
 
-        case DebugLevel.Warning:
-          newFont = new Font(oldFont, FontStyle.Regular);
-          newForeColor = Color.Orange;
-          break;
+				case DebugLevel.Error:
+					newFont = new Font(oldFont, FontStyle.Regular);
+					newForeColor = Color.Red;
+					break;
 
-        case DebugLevel.Info:
-          newFont = new Font(oldFont, FontStyle.Regular);
-          newForeColor = Color.LightGreen;
-          break;
+				case DebugLevel.Warning:
+					newFont = new Font(oldFont, FontStyle.Regular);
+					newForeColor = Color.Orange;
+					break;
 
-        case DebugLevel.Debug:
-          newFont = new Font(oldFont, FontStyle.Regular);
-          newForeColor = Color.MediumBlue;
-          break;
-      }
+				case DebugLevel.Info:
+					newFont = new Font(oldFont, FontStyle.Regular);
+					newForeColor = Color.LightGreen;
+					break;
 
-      richTextBoxDebug.SelectionFont = newFont;
-      richTextBoxDebug.SelectionColor = newForeColor;
-      richTextBoxDebug.AppendText(msg + Environment.NewLine);
-      richTextBoxDebug.SelectionFont = oldFont;
-      richTextBoxDebug.SelectionColor = oldForeColor;
+				case DebugLevel.Debug:
+					newFont = new Font(oldFont, FontStyle.Regular);
+					newForeColor = Color.MediumBlue;
+					break;
+			}
 
-      richTextBoxDebug.ScrollToCaret();
-    }
+			richTextBoxDebug.SelectionFont = newFont;
+			richTextBoxDebug.SelectionColor = newForeColor;
+			richTextBoxDebug.AppendText(msg + Environment.NewLine);
+			richTextBoxDebug.SelectionFont = oldFont;
+			richTextBoxDebug.SelectionColor = oldForeColor;
 
-    public void SetLevel(DebugLevel level)
-    {
-      this.debugLevel = level;
-    }
+			richTextBoxDebug.ScrollToCaret();
+		}
 
-    public DebugLevel GetLevel()
-    {
-      return this.debugLevel;
-    }
-  }
+		public void SetLevel (DebugLevel level)
+		{
+			this.debugLevel = level;
+		}
+
+		public DebugLevel GetLevel ()
+		{
+			return this.debugLevel;
+		}
+	}
 }
