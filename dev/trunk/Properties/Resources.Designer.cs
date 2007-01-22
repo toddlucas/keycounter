@@ -60,16 +60,16 @@ namespace KeyCounter.Properties {
             }
         }
         
-        internal static System.Drawing.Icon about {
+        internal static System.Drawing.Icon icon_about {
             get {
-                object obj = ResourceManager.GetObject("about", resourceCulture);
+                object obj = ResourceManager.GetObject("icon_about", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
         
-        internal static System.Drawing.Icon display {
+        internal static System.Drawing.Icon icon_display {
             get {
-                object obj = ResourceManager.GetObject("display", resourceCulture);
+                object obj = ResourceManager.GetObject("icon_display", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
@@ -81,16 +81,30 @@ namespace KeyCounter.Properties {
             }
         }
         
-        internal static System.Drawing.Icon keyboard_off {
+        internal static System.Drawing.Icon icon_keyboard_off {
             get {
-                object obj = ResourceManager.GetObject("keyboard_off", resourceCulture);
+                object obj = ResourceManager.GetObject("icon_keyboard_off", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
         
-        internal static System.Drawing.Icon keyboard_on {
+        internal static System.Drawing.Icon icon_keyboard_on {
             get {
-                object obj = ResourceManager.GetObject("keyboard_on", resourceCulture);
+                object obj = ResourceManager.GetObject("icon_keyboard_on", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Icon icon_options {
+            get {
+                object obj = ResourceManager.GetObject("icon_options", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Icon icon_reset {
+            get {
+                object obj = ResourceManager.GetObject("icon_reset", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
@@ -99,20 +113,6 @@ namespace KeyCounter.Properties {
             get {
                 object obj = ResourceManager.GetObject("keycounter_about", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Icon options {
-            get {
-                object obj = ResourceManager.GetObject("options", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Icon reset {
-            get {
-                object obj = ResourceManager.GetObject("reset", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
             }
         }
     }
