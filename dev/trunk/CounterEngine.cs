@@ -44,7 +44,7 @@ namespace KeyCounter.Counter
 		{
 			public bool removeOnMatch = false;
 
-			public FilterBasic (bool removeOnMatch)
+			public FilterBasic(bool removeOnMatch)
 			{
 				this.removeOnMatch = removeOnMatch;
 			}
@@ -54,13 +54,13 @@ namespace KeyCounter.Counter
 			 * The parameter 'countTabEntry' is tested against the internal filter settings,
 			 * returns true if countTabEntry matches the filter, false otherwise
 			 */
-			abstract public bool Filter (CountTabEntry<TKeyId> countTabEntry);
+			abstract public bool Filter(CountTabEntry<TKeyId> countTabEntry);
 
 			/*
 			 * Test if the supplied 'countTabEntry' should be removed; the decision is based on
 			 * the result of Filter()
 			 */
-			public bool ShouldRemove (CountTabEntry<TKeyId> countTabEntry)
+			public bool ShouldRemove(CountTabEntry<TKeyId> countTabEntry)
 			{
 				bool filterResult = Filter(countTabEntry);
 				bool shouldRemove = false;
@@ -78,13 +78,13 @@ namespace KeyCounter.Counter
 		{
 			public DateTime dateToMatch;
 
-			public FilterMatchDate (DateTime dateToMatch, bool removeOnMatch)
+			public FilterMatchDate(DateTime dateToMatch, bool removeOnMatch)
 				: base(removeOnMatch)
 			{
 				this.dateToMatch = dateToMatch;
 			}
 
-			public override bool Filter (CountTabEntry<TKeyId> countTabEntry)
+			public override bool Filter(CountTabEntry<TKeyId> countTabEntry)
 			{
 				bool result = false;
 
@@ -99,13 +99,13 @@ namespace KeyCounter.Counter
 		{
 			public List<DateTime> dateListToMatch = null;
 
-			public FilterMatchDateList (List<DateTime> dateListToMatch, bool removeOnMatch)
+			public FilterMatchDateList(List<DateTime> dateListToMatch, bool removeOnMatch)
 				: base(removeOnMatch)
 			{
 				this.dateListToMatch = dateListToMatch;
 			}
 
-			public override bool Filter (CountTabEntry<TKeyId> countTabEntry)
+			public override bool Filter(CountTabEntry<TKeyId> countTabEntry)
 			{
 				bool result = false;
 
@@ -127,14 +127,14 @@ namespace KeyCounter.Counter
 			public DateTime startDate;
 			public DateTime endDate;
 
-			public FilterMatchDateRange (DateTime startDate, DateTime endDate, bool removeOnMatch)
+			public FilterMatchDateRange(DateTime startDate, DateTime endDate, bool removeOnMatch)
 				: base(removeOnMatch)
 			{
 				this.startDate = startDate.Date;
 				this.endDate = endDate.Date;
 			}
 
-			public override bool Filter (CountTabEntry<TKeyId> countTabEntry)
+			public override bool Filter(CountTabEntry<TKeyId> countTabEntry)
 			{
 				bool result = false;
 
@@ -149,13 +149,13 @@ namespace KeyCounter.Counter
 		{
 			public DateTime dateMaximum;
 
-			public FilterMatchDateLessOrEqual (DateTime dateMaximum, bool removeOnMatch)
+			public FilterMatchDateLessOrEqual(DateTime dateMaximum, bool removeOnMatch)
 				: base(removeOnMatch)
 			{
 				this.dateMaximum = dateMaximum.Date;
 			}
 
-			public override bool Filter (CountTabEntry<TKeyId> countTabEntry)
+			public override bool Filter(CountTabEntry<TKeyId> countTabEntry)
 			{
 				bool result = false;
 
@@ -170,13 +170,13 @@ namespace KeyCounter.Counter
 		{
 			public DateTime dateMinimum;
 
-			public FilterMatchDateBigger (DateTime dateMinimum, bool removeOnMatch)
+			public FilterMatchDateBigger(DateTime dateMinimum, bool removeOnMatch)
 				: base(removeOnMatch)
 			{
 				this.dateMinimum = dateMinimum.Date;
 			}
 
-			public override bool Filter (CountTabEntry<TKeyId> countTabEntry)
+			public override bool Filter(CountTabEntry<TKeyId> countTabEntry)
 			{
 				bool result = false;
 
@@ -191,13 +191,13 @@ namespace KeyCounter.Counter
 		{
 			public TKeyId keyToMatch;
 
-			public FilterMatchKey (TKeyId keyToMatch, bool removeOnMatch)
+			public FilterMatchKey(TKeyId keyToMatch, bool removeOnMatch)
 				: base(removeOnMatch)
 			{
 				this.keyToMatch = keyToMatch;
 			}
 
-			public override bool Filter (CountTabEntry<TKeyId> countTabEntry)
+			public override bool Filter(CountTabEntry<TKeyId> countTabEntry)
 			{
 				bool result = false;
 
@@ -212,13 +212,13 @@ namespace KeyCounter.Counter
 		{
 			public List<TKeyId> keyListToMatch = null;
 
-			public FilterMatchKeyList (List<TKeyId> keyListToMatch, bool removeOnMatch)
+			public FilterMatchKeyList(List<TKeyId> keyListToMatch, bool removeOnMatch)
 				: base(removeOnMatch)
 			{
 				this.keyListToMatch = keyListToMatch;
 			}
 
-			public override bool Filter (CountTabEntry<TKeyId> countTabEntry)
+			public override bool Filter(CountTabEntry<TKeyId> countTabEntry)
 			{
 				bool result = false;
 
@@ -245,7 +245,7 @@ namespace KeyCounter.Counter
 		public uint count;
 		public bool isSummarized;
 
-		public CountTabEntry (DateTime dateTime, TKeyId keyId, uint count, bool isSummarized)
+		public CountTabEntry(DateTime dateTime, TKeyId keyId, uint count, bool isSummarized)
 		{
 			this.dateTime = dateTime;
 			this.keyId = keyId;
@@ -259,17 +259,17 @@ namespace KeyCounter.Counter
 	{
 		private List<CountTabEntry<TKeyId>> countTab = null;
 
-		public CountTab ()
+		public CountTab()
 		{
 			this.countTab = new List<CountTabEntry<TKeyId>>();
 		}
 
-		public CountTab (CountTab<TKeyId> oldTab)
+		public CountTab(CountTab<TKeyId> oldTab)
 		{
 			this.countTab = new List<CountTabEntry<TKeyId>>(oldTab.countTab);
 		}
 
-		public void Count (DateTime date, TKeyId keyId, uint ticks)
+		public void Count(DateTime date, TKeyId keyId, uint ticks)
 		{
 			DateTime dateOnly = date.Date;
 			bool foundEntry = false;
@@ -298,12 +298,12 @@ namespace KeyCounter.Counter
 				countTab.Add(new CountTabEntry<TKeyId>(dateOnly, keyId, ticks, false));
 		}
 
-		public void Clear ()
+		public void Clear()
 		{
 			countTab.Clear();
 		}
 
-		public int RowCount ()
+		public int RowCount()
 		{
 			return countTab.Count;
 		}
@@ -323,14 +323,14 @@ namespace KeyCounter.Counter
 		private Dictionary<TKeyId, string> keyIdToName = null;
 		private Dictionary<string, TKeyId> keyNameToId = null;
 
-		public KeyTab (Dictionary<TKeyId, string> keyIdToName)
+		public KeyTab(Dictionary<TKeyId, string> keyIdToName)
 		{
 			this.keyIdToName = keyIdToName;
 			keyNameToId = new Dictionary<string, TKeyId>();
 			UpdateDictKeyIdToName(keyIdToName);
 		}
 
-		public KeyTab (Dictionary<string, TKeyId> keyNameToId)
+		public KeyTab(Dictionary<string, TKeyId> keyNameToId)
 		{
 			this.keyNameToId = keyNameToId;
 			keyIdToName = new Dictionary<TKeyId, string>();
@@ -338,19 +338,19 @@ namespace KeyCounter.Counter
 		}
 
 		//Determine if KeyTab knows about a specific keyName. Returns true for known keys, false otherwise.
-		public bool ContainsKeyName (string keyName)
+		public bool ContainsKeyName(string keyName)
 		{
 			return this.keyNameToId.ContainsKey(keyName);
 		}
 
 		//Determine if KeyTab knows about a specific keyId. Returns true for known keys, false otherwise.
-		public bool ContainsKeyId (TKeyId keyId)
+		public bool ContainsKeyId(TKeyId keyId)
 		{
 			return this.keyIdToName.ContainsKey(keyId);
 		}
 
 		//Try to find a keyName in KeyTab; returns true for known keys, false for unknown ones; keyId is used as keyId output
-		public bool TryGetKeyId (string keyName, out TKeyId keyId)
+		public bool TryGetKeyId(string keyName, out TKeyId keyId)
 		{
 			if (keyNameToId.TryGetValue(keyName, out keyId))
 				return true;
@@ -359,7 +359,7 @@ namespace KeyCounter.Counter
 		}
 
 		//Try to find a keyId in KeyTab; returns true for known keys, false for unknown ones; keyId is used as keyId output
-		public bool TryGetKeyName (TKeyId keyId, out string keyName)
+		public bool TryGetKeyName(TKeyId keyId, out string keyName)
 		{
 			if (keyIdToName.TryGetValue(keyId, out keyName))
 				return true;
@@ -368,13 +368,13 @@ namespace KeyCounter.Counter
 		}
 
 		//Find out how many keys are registred in keyTab
-		public int RowCount ()
+		public int RowCount()
 		{
 			return keyIdToName.Count;
 		}
 
 		//Return a complete list of registered keyIDs; same order as NameList
-		public List<TKeyId> KeyIdList ()
+		public List<TKeyId> KeyIdList()
 		{
 			List<TKeyId> fullIdList = new List<TKeyId>();
 			Dictionary<TKeyId, string>.KeyCollection keyColl = this.keyIdToName.Keys;
@@ -386,7 +386,7 @@ namespace KeyCounter.Counter
 		}
 
 		//Return a complete list of registered keyNames; same order as IdList
-		public List<string> KeyNameList ()
+		public List<string> KeyNameList()
 		{
 			List<string> fullNameList = new List<string>();
 			Dictionary<string, TKeyId>.KeyCollection keyColl = this.keyNameToId.Keys;
@@ -397,7 +397,7 @@ namespace KeyCounter.Counter
 			return fullNameList;
 		}
 
-		private void UpdateDictKeyIdToName (Dictionary<TKeyId, string> keyIdToName)
+		private void UpdateDictKeyIdToName(Dictionary<TKeyId, string> keyIdToName)
 		{
 			this.keyNameToId.Clear();
 
@@ -405,7 +405,7 @@ namespace KeyCounter.Counter
 				this.keyNameToId.Add(buffer.Value, buffer.Key);
 		}
 
-		private void UpdateDictKeyNameToId (Dictionary<string, TKeyId> keyNameToId)
+		private void UpdateDictKeyNameToId(Dictionary<string, TKeyId> keyNameToId)
 		{
 			this.keyIdToName.Clear();
 
@@ -418,16 +418,16 @@ namespace KeyCounter.Counter
 	{
 		private string keyInfo = "";
 
-		public NoKeyEntryException ()
+		public NoKeyEntryException()
 		{
 		}
 
-		public NoKeyEntryException (string keyInfo)
+		public NoKeyEntryException(string keyInfo)
 		{
 			this.keyInfo = keyInfo;
 		}
 
-		public override string ToString ()
+		public override string ToString()
 		{
 			return base.ToString() + " key: " + keyInfo;
 		}
@@ -447,12 +447,12 @@ namespace KeyCounter.Counter
 		public ITextDebugger textDebugger = null;
 		public IFileAccessChecker fileAccessChecker = null;
 
-		public CounterEngine (KeyTab<TKeyId> keyTab, ITextDebugger textDebugger)
+		public CounterEngine(KeyTab<TKeyId> keyTab, ITextDebugger textDebugger)
 			: this(keyTab, new CountTab<TKeyId>(), textDebugger)
 		{
 		}
 
-		private CounterEngine (KeyTab<TKeyId> keyTab, CountTab<TKeyId> countTab, ITextDebugger textDebugger)
+		private CounterEngine(KeyTab<TKeyId> keyTab, CountTab<TKeyId> countTab, ITextDebugger textDebugger)
 		{
 			this.countTab = countTab;
 			this.keyTab = keyTab;
@@ -467,13 +467,13 @@ namespace KeyCounter.Counter
 			this.fileAccessChecker = new LogFileAccessChecker();
 		}
 
-		private void Debug (string msg, DebugLevel msgLevel)
+		private void Debug(string msg, DebugLevel msgLevel)
 		{
 			if (this.textDebugger != null)
 				textDebugger.Debug(msg, msgLevel);
 		}
 
-		public void UpdateUpTime (int estimatedTimeMs)
+		public void UpdateUpTime(int estimatedTimeMs)
 		{
 			TimeSpan additionalUptime = DateTime.Now - lastUptimeCount;
 			lastUptimeCount = DateTime.Now;
@@ -495,7 +495,7 @@ namespace KeyCounter.Counter
 		}
 
 		#region COUNTTAB-MANIPULATION
-		public void Count (DateTime date, TKeyId keyId, uint ticks)
+		public void Count(DateTime date, TKeyId keyId, uint ticks)
 		{
 			if (!keyTab.ContainsKeyId(keyId))
 				throw new NoKeyEntryException("key with keyId=" + keyId.ToString() + " not found");
@@ -503,7 +503,7 @@ namespace KeyCounter.Counter
 			countTab.Count(date, keyId, ticks);
 		}
 
-		public void Count (DateTime date, string keyName, uint ticks)
+		public void Count(DateTime date, string keyName, uint ticks)
 		{
 			TKeyId keyId;
 
@@ -515,7 +515,7 @@ namespace KeyCounter.Counter
 			Count(date, keyId, ticks);
 		}
 
-		public void ClearCounter ()
+		public void ClearCounter()
 		{
 			this.countTab.Clear();
 
@@ -525,7 +525,7 @@ namespace KeyCounter.Counter
 			this.uptimeSinceReset = new TimeSpan(0);
 		}
 
-		public void ClearTempCounter ()
+		public void ClearTempCounter()
 		{
 			this.tempCounterStart = DateTime.Now.Date;
 		}
@@ -533,7 +533,7 @@ namespace KeyCounter.Counter
 		#endregion
 
 		#region QUERIES
-		public List<int> IndexBuild ()
+		public List<int> IndexBuild()
 		{
 			List<int> output = new List<int>();
 			int numOfRows = countTab.RowCount();
@@ -544,7 +544,7 @@ namespace KeyCounter.Counter
 			return output;
 		}
 
-		public void IndexApplyFilter (Filters.FilterBasic<TKeyId> filter, List<int> countTabIndex)
+		public void IndexApplyFilter(Filters.FilterBasic<TKeyId> filter, List<int> countTabIndex)
 		{
 			for (int listIndex = countTabIndex.Count - 1; listIndex >= 0; listIndex--)
 			{
@@ -553,13 +553,13 @@ namespace KeyCounter.Counter
 			}
 		}
 
-		public void IndexApplyFilter (List<Filters.FilterBasic<TKeyId>> filterList, List<int> countTabIndex)
+		public void IndexApplyFilter(List<Filters.FilterBasic<TKeyId>> filterList, List<int> countTabIndex)
 		{
 			foreach (Filters.FilterBasic<TKeyId> filterInList in filterList)
 				IndexApplyFilter(filterInList, countTabIndex);
 		}
 
-		public uint IndexCountSum (List<int> countTabIndex)
+		public uint IndexCountSum(List<int> countTabIndex)
 		{
 			uint count = 0;
 
@@ -569,7 +569,7 @@ namespace KeyCounter.Counter
 			return count;
 		}
 
-		public DataTable CompleteTable ()
+		public DataTable CompleteTable()
 		{
 			DataTable table = new DataTable();
 			table.Columns.Clear();
@@ -583,7 +583,7 @@ namespace KeyCounter.Counter
 			return table;
 		}
 
-		public DataTable IndexCount (List<int> countTabIndex)
+		public DataTable IndexCount(List<int> countTabIndex)
 		{
 			DataTable table = new DataTable();
 			int index;
@@ -607,7 +607,7 @@ namespace KeyCounter.Counter
 			return table;
 		}
 
-		public DataTable IndexCountByDate (List<int> countTabIndex)
+		public DataTable IndexCountByDate(List<int> countTabIndex)
 		{
 			uint tempCount;
 			int indexInIndex;
@@ -644,7 +644,7 @@ namespace KeyCounter.Counter
 			return table;
 		}
 
-		public DataTable IndexCountByKey (List<int> countTabIndex)
+		public DataTable IndexCountByKey(List<int> countTabIndex)
 		{
 			uint tempCount;
 			int indexInIndex;
@@ -685,7 +685,7 @@ namespace KeyCounter.Counter
 		#endregion
 
 		#region FILEHANDLING
-		public void SaveBinary (string filePath)
+		public void SaveBinary(string filePath)
 		{
 			UpdateUpTime(0);
 
@@ -700,7 +700,7 @@ namespace KeyCounter.Counter
 			stream.Close();
 		}
 
-		public void ReadBinary (string filePath)
+		public void ReadBinary(string filePath)
 		{
 			FileStream stream = null;
 
@@ -720,7 +720,7 @@ namespace KeyCounter.Counter
 
 	public class LogFileAccessChecker : IFileAccessChecker
 	{
-		public FileAccessError CheckPathName (string path, string name)
+		public FileAccessError CheckPathName(string path, string name)
 		{
 			FileAccessError result = FileAccessError.None;
 
