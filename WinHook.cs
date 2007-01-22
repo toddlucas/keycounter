@@ -23,7 +23,7 @@ namespace KeyCounter.WinHook
 		//Variables used in the call to SetWindowsHookEx
 		protected HookHandlerDelegate proc;
 		protected IntPtr hookID = IntPtr.Zero;
-		protected delegate IntPtr HookHandlerDelegate (int nCode, IntPtr wParam, ref KBDLLHOOKSTRUCT lParam);
+		protected delegate IntPtr HookHandlerDelegate(int nCode, IntPtr wParam, ref KBDLLHOOKSTRUCT lParam);
 
 		// Structure returned by the hook
 		protected struct KBDLLHOOKSTRUCT
@@ -37,32 +37,32 @@ namespace KeyCounter.WinHook
 
 		#region DllImports
 		[DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-		protected static extern IntPtr SetWindowsHookEx (int idHook, HookHandlerDelegate lpfn, IntPtr hMod, uint dwThreadId);
+		protected static extern IntPtr SetWindowsHookEx(int idHook, HookHandlerDelegate lpfn, IntPtr hMod, uint dwThreadId);
 
 		[DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
 		[return: MarshalAs(UnmanagedType.Bool)]
-		protected static extern bool UnhookWindowsHookEx (IntPtr hhk);
+		protected static extern bool UnhookWindowsHookEx(IntPtr hhk);
 
 		[DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-		protected static extern IntPtr CallNextHookEx (IntPtr hhk, int nCode, IntPtr wParam, ref KBDLLHOOKSTRUCT lParam);
+		protected static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, ref KBDLLHOOKSTRUCT lParam);
 
 		[DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-		protected static extern IntPtr GetModuleHandle (string lpModuleName);
+		protected static extern IntPtr GetModuleHandle(string lpModuleName);
 		#endregion
 
-		public UniversalHook ()
+		public UniversalHook()
 		{
 			// set up desired hook using SetWindowsHookEx
 		}
 
 		// Release the hook
-		public void Dispose ()
+		public void Dispose()
 		{
 			UnhookWindowsHookEx(hookID);
 		}
 
 		// Processes the event captured by the hook
-		protected virtual IntPtr HookCallback (int nCode, IntPtr wParam, ref KBDLLHOOKSTRUCT lParam)
+		protected virtual IntPtr HookCallback(int nCode, IntPtr wParam, ref KBDLLHOOKSTRUCT lParam)
 		{
 			return (System.IntPtr)1;
 		}
@@ -70,13 +70,13 @@ namespace KeyCounter.WinHook
 		#region Event stuff
 
 		// Delegate for Hook event handling
-		public delegate void HookEventHandler (HookEventArgs e);
+		public delegate void HookEventHandler(HookEventArgs e);
 
 		// Event triggered when a keystroke is intercepted by the low-level hook
 		public event HookEventHandler KeyIntercepted;
 
 		// Raises the KeyIntercepted event.
-		public void OnKeyIntercepted (HookEventArgs e)
+		public void OnKeyIntercepted(HookEventArgs e)
 		{
 			if (KeyIntercepted != null)
 				KeyIntercepted(e);
@@ -91,7 +91,7 @@ namespace KeyCounter.WinHook
 			public int time;
 			public int dwExtraInfo;
 
-			public HookEventArgs (int vkc, int sc, int f, int t, int dwei)
+			public HookEventArgs(int vkc, int sc, int f, int t, int dwei)
 			{
 				vkCode = vkc;
 				scanCode = sc;
@@ -111,7 +111,7 @@ namespace KeyCounter.WinHook
 		private const int WM_SYSKEYUP = 0x0105;
 
 		// Constructor: set up a keyboard hook to trap all keystrokes
-		public KeyboardHook ()
+		public KeyboardHook()
 		{
 			proc = new HookHandlerDelegate(HookCallback);
 			using (Process curProcess = Process.GetCurrentProcess())
@@ -122,7 +122,7 @@ namespace KeyCounter.WinHook
 		}
 
 		// Processes the key event captured by the hook
-		protected override IntPtr HookCallback (int nCode, IntPtr wParam, ref KBDLLHOOKSTRUCT lParam)
+		protected override IntPtr HookCallback(int nCode, IntPtr wParam, ref KBDLLHOOKSTRUCT lParam)
 		{
 			//Filter wParam for KeyUp events only
 			if (nCode >= 0 && (wParam == (IntPtr)WM_KEYUP || wParam == (IntPtr)WM_SYSKEYUP))
@@ -141,7 +141,7 @@ namespace KeyCounter.WinHook
 		private const int WM_RBUTTONDOWN = 0x0204;
 
 		// Constructor: set up a mouse hook
-		public MouseHook ()
+		public MouseHook()
 		{
 			proc = new HookHandlerDelegate(HookCallback);
 			using (Process curProcess = Process.GetCurrentProcess())
@@ -152,7 +152,7 @@ namespace KeyCounter.WinHook
 		}
 
 		// Processes the key event captured by the hook
-		protected override IntPtr HookCallback (int nCode, IntPtr wParam, ref KBDLLHOOKSTRUCT lParam)
+		protected override IntPtr HookCallback(int nCode, IntPtr wParam, ref KBDLLHOOKSTRUCT lParam)
 		{
 			//Filter wParam for KeyUp events only
 			if (nCode >= 0 && wParam == (IntPtr)WM_LBUTTONDOWN)

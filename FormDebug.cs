@@ -26,28 +26,28 @@ namespace KeyCounter
 	{
 		private DebugLevel debugLevel = DebugLevel.Debug;
 
-		public FormDebug ()
+		public FormDebug()
 		{
 			InitializeComponent();
 			this.Icon = KeyCounterIcons.iconKeyboardOn;
 		}
 
-		private void buttonDebugClear_Click (object sender, EventArgs e)
+		private void buttonDebugClear_Click(object sender, EventArgs e)
 		{
 			richTextBoxDebug.Clear();
 		}
 
-		private void buttonDebugClose_Click (object sender, EventArgs e)
+		private void buttonDebugClose_Click(object sender, EventArgs e)
 		{
 			this.Hide();
 		}
 
-		public void Debug (string msg)
+		public void Debug(string msg)
 		{
 			Debug(msg, DebugLevel.Debug);
 		}
 
-		public void Debug (string msg, DebugLevel msgLevel)
+		public void Debug(string msg, DebugLevel msgLevel)
 		{
 			if ((msgLevel == DebugLevel.None) || (msgLevel > debugLevel))
 				return;
@@ -94,12 +94,12 @@ namespace KeyCounter
 			richTextBoxDebug.ScrollToCaret();
 		}
 
-		public void SetLevel (DebugLevel level)
+		public void SetLevel(DebugLevel level)
 		{
 			this.debugLevel = level;
 		}
 
-		public DebugLevel GetLevel ()
+		public DebugLevel GetLevel()
 		{
 			return this.debugLevel;
 		}

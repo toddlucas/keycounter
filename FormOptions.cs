@@ -37,7 +37,7 @@ namespace KeyCounter
 		private string defaultLogfileExtension;
 		private DialogResult dialogResult = DialogResult.Cancel;
 
-		public FormOptions (FormOptionsParameters parameters, IFileAccessChecker fileAccessChecker)
+		public FormOptions(FormOptionsParameters parameters, IFileAccessChecker fileAccessChecker)
 		{
 			InitializeComponent();
 			this.Icon = KeyCounterIcons.iconKeyboardOn;
@@ -58,15 +58,15 @@ namespace KeyCounter
 			get { return this.dialogResult; }
 		}
 
-		private void SetErrorProviderLogfileName (string msg) { errorProvider.SetError(textBoxLogfileName, msg); }
+		private void SetErrorProviderLogfileName(string msg) { errorProvider.SetError(textBoxLogfileName, msg); }
 
-		private void ClearErrorProviderLogfileName () { errorProvider.SetError(textBoxLogfileName, String.Empty); }
+		private void ClearErrorProviderLogfileName() { errorProvider.SetError(textBoxLogfileName, String.Empty); }
 
-		private void SetErrorProviderLogfilePath (string msg) { errorProvider.SetError(buttonChooseDir, msg); }
+		private void SetErrorProviderLogfilePath(string msg) { errorProvider.SetError(buttonChooseDir, msg); }
 
-		private void ClearErrorProviderLogfilePath () { errorProvider.SetError(buttonChooseDir, String.Empty); }
+		private void ClearErrorProviderLogfilePath() { errorProvider.SetError(buttonChooseDir, String.Empty); }
 
-		private void ApplyParameters (FormOptionsParameters settings)
+		private void ApplyParameters(FormOptionsParameters settings)
 		{
 			checkBoxAutostart.Checked = settings.autostartEnabled;
 			this.defaultLogfileExtension = settings.logfileDefaultExtension;
@@ -76,7 +76,7 @@ namespace KeyCounter
 			comboBoxLogfilePath.SelectedIndex = 0;
 		}
 
-		private FormOptionsParameters ReadParameters ()
+		private FormOptionsParameters ReadParameters()
 		{
 			FormOptionsParameters settings = new FormOptionsParameters();
 
@@ -102,7 +102,7 @@ namespace KeyCounter
 			get { return LogfilePath + "\\" + LogfileName; }
 		}
 
-		private void UpdateGui ()
+		private void UpdateGui()
 		{
 			string resultingLogfileName = LogfileName;
 
@@ -164,24 +164,24 @@ namespace KeyCounter
 				buttonOk.Enabled = false;
 		}
 
-		private void textBoxLogfileName_TextChanged (object sender, EventArgs e)
+		private void textBoxLogfileName_TextChanged(object sender, EventArgs e)
 		{
 			UpdateGui();
 		}
 
-		private void buttonOk_Click (object sender, EventArgs e)
+		private void buttonOk_Click(object sender, EventArgs e)
 		{
 			this.dialogResult = DialogResult.OK;
 			Close();
 		}
 
-		private void buttonCancel_Click (object sender, EventArgs e)
+		private void buttonCancel_Click(object sender, EventArgs e)
 		{
 			this.dialogResult = DialogResult.Cancel;
 			Close();
 		}
 
-		private void buttonChooseDir_Click (object sender, EventArgs e)
+		private void buttonChooseDir_Click(object sender, EventArgs e)
 		{
 			folderBrowserDialog.Description = "Choose the folder where statistics will be saved";
 			if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
@@ -195,7 +195,7 @@ namespace KeyCounter
 			UpdateGui();
 		}
 
-		private void comboBoxLogfilePath_SelectedIndexChanged (object sender, EventArgs e)
+		private void comboBoxLogfilePath_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			UpdateGui();
 		}
