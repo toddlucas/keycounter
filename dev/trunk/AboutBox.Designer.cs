@@ -1,32 +1,32 @@
 namespace KeyCounter
 {
-  partial class AboutBox
-  {
-    /// <summary>
-    /// Required designer variable.
-    /// </summary>
-    private System.ComponentModel.IContainer components = null;
+	partial class AboutBox
+	{
+		/// <summary>
+		/// Required designer variable.
+		/// </summary>
+		private System.ComponentModel.IContainer components = null;
 
-    /// <summary>
-    /// Clean up any resources being used.
-    /// </summary>
-    protected override void Dispose (bool disposing)
-    {
-      if (disposing && (components != null))
-      {
-        components.Dispose();
-      }
-      base.Dispose(disposing);
-    }
+		/// <summary>
+		/// Clean up any resources being used.
+		/// </summary>
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing && (components != null))
+			{
+				components.Dispose();
+			}
+			base.Dispose(disposing);
+		}
 
-    #region Windows Form Designer generated code
+		#region Windows Form Designer generated code
 
-    /// <summary>
-    /// Required method for Designer support - do not modify
-    /// the contents of this method with the code editor.
-    /// </summary>
-    private void InitializeComponent ()
-    {
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{
 			this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
 			this.logoPictureBox = new System.Windows.Forms.PictureBox();
 			this.labelProductName = new System.Windows.Forms.Label();
@@ -174,17 +174,17 @@ namespace KeyCounter
 			((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
 			this.ResumeLayout(false);
 
-    }
+		}
 
-    #endregion
+		#endregion
 
-    private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
-    private System.Windows.Forms.PictureBox logoPictureBox;
-    private System.Windows.Forms.Label labelProductName;
-    private System.Windows.Forms.Label labelVersion;
-    private System.Windows.Forms.Label labelCopyright;
-    private System.Windows.Forms.Label labelCompiled;
-    private System.Windows.Forms.TextBox textBoxDescription;
-    private System.Windows.Forms.Button okButton;
-  }
+		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
+		private System.Windows.Forms.PictureBox logoPictureBox;
+		private System.Windows.Forms.Label labelProductName;
+		private System.Windows.Forms.Label labelVersion;
+		private System.Windows.Forms.Label labelCopyright;
+		private System.Windows.Forms.Label labelCompiled;
+		private System.Windows.Forms.TextBox textBoxDescription;
+		private System.Windows.Forms.Button okButton;
+	}
 }

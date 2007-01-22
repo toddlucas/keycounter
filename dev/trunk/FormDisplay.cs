@@ -39,7 +39,7 @@ namespace KeyCounter
 		private bool tabPerKeyDrawn = false;
 
 
-		public FormDisplay (ITextDebugger textDebugger, CounterEngine<int> counterEngine)
+		public FormDisplay(ITextDebugger textDebugger, CounterEngine<int> counterEngine)
 		{
 			InitializeComponent();
 
@@ -56,18 +56,18 @@ namespace KeyCounter
 			comboBoxCustomGroupBy.SelectedItem = comboBoxCustomGroupBy.Items[0];
 		}
 
-		private void Debug (string msg, DebugLevel msgLevel)
+		private void Debug(string msg, DebugLevel msgLevel)
 		{
 			if (this.textDebugger != null)
 				textDebugger.Debug(msg, msgLevel);
 		}
 
-		private void buttonOK_Click (object sender, EventArgs e)
+		private void buttonOK_Click(object sender, EventArgs e)
 		{
 			Close();
 		}
 
-		private void UpdateSummary ()
+		private void UpdateSummary()
 		{
 			dataGridViewSummary.Rows.Clear();
 			dataGridViewSummary.Columns.Clear();
@@ -132,7 +132,7 @@ namespace KeyCounter
 			tabSummaryDrawn = true;
 		}
 
-		public void UpdateDaily ()
+		public void UpdateDaily()
 		{
 			Debug("FormDisplay.UpdateDaily()", DebugLevel.Debug);
 
@@ -148,7 +148,7 @@ namespace KeyCounter
 			tabDailyDrawn = true;
 		}
 
-		public void UpdateWeekly ()
+		public void UpdateWeekly()
 		{
 			DateTime today = DateTime.Now.Date;
 			DateTime firstDay = counterEngine.lastReset.Date;
@@ -188,7 +188,7 @@ namespace KeyCounter
 			tabWeeklyDrawn = true;
 		}
 
-		private void UpdateMonthly ()
+		private void UpdateMonthly()
 		{
 			DateTime today = DateTime.Now.Date;
 			DateTime firstDay = counterEngine.lastReset.Date;
@@ -226,7 +226,7 @@ namespace KeyCounter
 			tabMonthlyDrawn = true;
 		}
 
-		private void UpdatePerKey ()
+		private void UpdatePerKey()
 		{
 			double uptimeMinutes = counterEngine.uptimeSinceReset.TotalMinutes;
 			Debug("FormDisplay.UpdatePerKey()", DebugLevel.Debug);
@@ -258,12 +258,12 @@ namespace KeyCounter
 			tabPerKeyDrawn = true;
 		}
 
-		private string FormatTimeSpan (TimeSpan input)
+		private string FormatTimeSpan(TimeSpan input)
 		{
 			return input.Days.ToString() + " days, " + input.Hours.ToString() + " hours, " + input.Minutes.ToString() + " minutes, " + input.Seconds.ToString() + " seconds";
 		}
 
-		private uint SumDataRowColumn (DataRow[] rows, int column)
+		private uint SumDataRowColumn(DataRow[] rows, int column)
 		{
 			uint result = 0;
 
@@ -273,42 +273,42 @@ namespace KeyCounter
 			return result;
 		}
 
-		private void checkBoxDailyShowEmpty_CheckedChanged (object sender, EventArgs e)
+		private void checkBoxDailyShowEmpty_CheckedChanged(object sender, EventArgs e)
 		{
 			UpdateDaily();
 		}
 
-		private void tabPageSummary_Enter (object sender, EventArgs e)
+		private void tabPageSummary_Enter(object sender, EventArgs e)
 		{
 			if (!tabSummaryDrawn)
 				UpdateSummary();
 		}
 
-		private void tabPageDaily_Enter (object sender, EventArgs e)
+		private void tabPageDaily_Enter(object sender, EventArgs e)
 		{
 			if (!tabDailyDrawn)
 				UpdateDaily();
 		}
 
-		private void tabPageWeekly_Enter (object sender, EventArgs e)
+		private void tabPageWeekly_Enter(object sender, EventArgs e)
 		{
 			if (!tabWeeklyDrawn)
 				UpdateWeekly();
 		}
 
-		private void tabPageMonthly_Enter (object sender, EventArgs e)
+		private void tabPageMonthly_Enter(object sender, EventArgs e)
 		{
 			if (!tabMonthlyDrawn)
 				UpdateMonthly();
 		}
 
-		private void tabPagePerKey_Enter (object sender, EventArgs e)
+		private void tabPagePerKey_Enter(object sender, EventArgs e)
 		{
 			if (!tabPerKeyDrawn)
 				UpdatePerKey();
 		}
 
-		private void buttonCustomUpdate_Click (object sender, EventArgs e)
+		private void buttonCustomUpdate_Click(object sender, EventArgs e)
 		{
 			List<int> tempIndex = new List<int>(completeIndex);
 			FilterMatchDateRange<int> filter = new FilterMatchDateRange<int>(dateTimePickerCustomStartDate.Value, dateTimePickerCustomEndDate.Value, false);

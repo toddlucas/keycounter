@@ -26,7 +26,7 @@ namespace KeyCounter
 		/// The main entry point for the application.
 		/// </summary>
 		[STAThread]
-		static void Main ()
+		static void Main()
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
@@ -63,10 +63,10 @@ namespace KeyCounter
 
 	public interface ITextDebugger
 	{
-		void Debug (string msg);
-		void Debug (string msg, DebugLevel msgLevel);
-		void SetLevel (DebugLevel level);
-		DebugLevel GetLevel ();
+		void Debug(string msg);
+		void Debug(string msg, DebugLevel msgLevel);
+		void SetLevel(DebugLevel level);
+		DebugLevel GetLevel();
 	}
 
 	public enum DebugLevel
@@ -81,7 +81,7 @@ namespace KeyCounter
 
 	public interface IFileAccessChecker
 	{
-		FileAccessError CheckPathName (string path, string name);
+		FileAccessError CheckPathName(string path, string name);
 	}
 
 	public enum FileAccessError

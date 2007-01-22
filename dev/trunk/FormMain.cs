@@ -45,7 +45,7 @@ namespace KeyCounter
 		private string registryAutostartName;
 
 
-		public FormMain (FormDebug formDebug, List<UniversalHook> hookList)
+		public FormMain(FormDebug formDebug, List<UniversalHook> hookList)
 		{
 			InitializeComponent();
 			ReadSettings();
@@ -82,7 +82,7 @@ namespace KeyCounter
 			UpdateGui();
 		}
 
-		private void ReadSettings ()
+		private void ReadSettings()
 		{
 			this.debugModeEnabled = Properties.Settings.Default.debugModeEnabled;
 			this.firstStart = Properties.Settings.Default.firstStart;
@@ -96,14 +96,14 @@ namespace KeyCounter
 				this.logfilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 		}
 
-		private void WriteSettings ()
+		private void WriteSettings()
 		{
 			Properties.Settings.Default.firstStart = this.firstStart;
 			Properties.Settings.Default.logfilePath = this.logfilePath;
 			Properties.Settings.Default.logfileName = this.logfileName;
 		}
 
-		private Dictionary<int, string> GenerateKeyTable ()
+		private Dictionary<int, string> GenerateKeyTable()
 		{
 			Dictionary<int, string> output = new Dictionary<int, string>();
 
@@ -119,7 +119,7 @@ namespace KeyCounter
 			return output;
 		}
 
-		private bool LoadCounter ()
+		private bool LoadCounter()
 		{
 			Debug("FormMain.LoadCounter: reading from \"" + this.LogfileCompletePath + "\"", DebugLevel.Info);
 
@@ -144,7 +144,7 @@ namespace KeyCounter
 			return true;
 		}
 
-		private bool SaveCounter (string filePath)
+		private bool SaveCounter(string filePath)
 		{
 			Debug("FormMain.SaveCounter: saving to \"" + this.LogfileCompletePath + "\"", DebugLevel.Info);
 
@@ -163,13 +163,13 @@ namespace KeyCounter
 			return true;
 		}
 
-		private void OnKeyInterceptedHandler (UniversalHook.HookEventArgs e)
+		private void OnKeyInterceptedHandler(UniversalHook.HookEventArgs e)
 		{
 			if (hookEnabled)
 				counterEngine.countTab.Count(DateTime.Now.Date, e.vkCode, 1);
 		}
 
-		private void Debug (string msg, DebugLevel msgLevel)
+		private void Debug(string msg, DebugLevel msgLevel)
 		{
 			if (this.textDebugger != null)
 				textDebugger.Debug(msg, msgLevel);
@@ -177,21 +177,21 @@ namespace KeyCounter
 
 		private string LogfileCompletePath { get { return this.logfilePath + "\\" + this.logfileName; } }
 
-		private void PreExit ()
+		private void PreExit()
 		{
 			SaveCounter(LogfileCompletePath);
 			WriteSettings();
 			Properties.Settings.Default.Save();
 		}
 
-		private void UpdateGui ()
+		private void UpdateGui()
 		{
 			displayToolStripMenuItem.Image = KeyCounterIcons.iconDisplay.ToBitmap();
 			resetCounterToolStripMenuItem.Image = KeyCounterIcons.iconReset.ToBitmap();
 			exitToolStripMenuItem.Image = KeyCounterIcons.iconExit.ToBitmap();
 			aboutToolStripMenuItem.Image = KeyCounterIcons.iconAbout.ToBitmap();
 			optionsToolStripMenuItem.Image = KeyCounterIcons.iconOptions.ToBitmap();
-			
+
 			if (this.hookEnabled)
 			{
 				startstopCountingToolStripMenuItem.Text = "Stop counting";
@@ -211,24 +211,24 @@ namespace KeyCounter
 			fillCountTabToolStripMenuItem.Visible = debugModeEnabled;
 		}
 
-		private void FormMain_FormClosing (object sender, FormClosingEventArgs e)
+		private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			PreExit();
 		}
 
-		private void exitToolStripMenuItem_Click (object sender, EventArgs e)
+		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			PreExit();
 			Application.Exit();
 		}
 
-		private void startstopCountingToolStripMenuItem_Click (object sender, EventArgs e)
+		private void startstopCountingToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			this.hookEnabled = !this.hookEnabled;
 			UpdateGui();
 		}
 
-		private void aboutToolStripMenuItem_Click (object sender, EventArgs e)
+		private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			this.NotifyIconEnabled = false;
 			AboutBox about = new AboutBox();
@@ -236,7 +236,7 @@ namespace KeyCounter
 			this.NotifyIconEnabled = true;
 		}
 
-		private void displayToolStripMenuItem_Click (object sender, EventArgs e)
+		private void displayToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			bool hookWasEnabled = this.hookEnabled;
 
@@ -249,12 +249,12 @@ namespace KeyCounter
 			this.hookEnabled = hookWasEnabled;
 		}
 
-		private void openDebugWindowToolStripMenuItem_Click (object sender, EventArgs e)
+		private void openDebugWindowToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			this.formDebug.Show();
 		}
 
-		private void fillCountTabToolStripMenuItem_Click (object sender, EventArgs e)
+		private void fillCountTabToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			int dayCount = 400;
 
@@ -281,7 +281,7 @@ namespace KeyCounter
 			Debug("counttab filled with " + counterEngine.countTab.RowCount() + " rows", DebugLevel.Debug);
 		}
 
-		private void resetCounterToolStripMenuItem_Click (object sender, EventArgs e)
+		private void resetCounterToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			if (MessageBox.Show("Do you really want to reset the counter?", "KeyCounter", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
 			{
@@ -290,12 +290,12 @@ namespace KeyCounter
 			}
 		}
 
-		private void timerUpdateUpTime_Tick (object sender, EventArgs e)
+		private void timerUpdateUpTime_Tick(object sender, EventArgs e)
 		{
 			counterEngine.UpdateUpTime(updateUpTimePeriodMs);
 		}
 
-		private void ShowBalloon (string msg, ToolTipIcon icon)
+		private void ShowBalloon(string msg, ToolTipIcon icon)
 		{
 			notifyIconKeyCounter.ShowBalloonTip(10, "KeyCounter", msg, icon);
 		}
@@ -306,7 +306,7 @@ namespace KeyCounter
 			set { contextMenuStripNotify.Enabled = value; }
 		}
 
-		private bool ReadAutostartSetting ()
+		private bool ReadAutostartSetting()
 		{
 			bool bFoundAutostart = false;
 			RegistryKey regHKCU = Registry.CurrentUser;
@@ -327,7 +327,7 @@ namespace KeyCounter
 			return bFoundAutostart;
 		}
 
-		private void WriteAutostartSetting (bool autostartEnabled)
+		private void WriteAutostartSetting(bool autostartEnabled)
 		{
 			Debug("FormMain.WriteAutostartSetting", DebugLevel.Debug);
 
@@ -347,7 +347,7 @@ namespace KeyCounter
 			regHKCU.Close();
 		}
 
-		private void optionsToolStripMenuItem_Click (object sender, EventArgs e)
+		private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			FormOptionsParameters currParams = new FormOptionsParameters();
 			currParams.autostartEnabled = ReadAutostartSetting();
@@ -372,7 +372,7 @@ namespace KeyCounter
 			this.NotifyIconEnabled = true;
 		}
 
-		private void notifyIconKeyCounter_MouseDoubleClick (object sender, MouseEventArgs e)
+		private void notifyIconKeyCounter_MouseDoubleClick(object sender, MouseEventArgs e)
 		{
 			displayToolStripMenuItem_Click(sender, e);
 		}
