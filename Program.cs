@@ -16,79 +16,91 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Threading;
+using System.Drawing;
 
 namespace KeyCounter
 {
-    static class Program
-    {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        static void Main()
-        {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+	static class Program
+	{
+		/// <summary>
+		/// The main entry point for the application.
+		/// </summary>
+		[STAThread]
+		static void Main ()
+		{
+			Application.EnableVisualStyles();
+			Application.SetCompatibleTextRenderingDefault(false);
 
-            // generate mutex to allow only one instance of keycounter
-            Mutex mutex = new Mutex(false, Application.ProductName + "ad90g7a9d7");
-            if (mutex.WaitOne(0, false))
-            {
-                FormDebug formDebug;
-                FormMain formMain;
-                WinHook.KeyboardHook keyboardHook;
-                WinHook.MouseHook mouseHook;
-                List<WinHook.UniversalHook> hookList;
+			// generate mutex to allow only one instance of keycounter
+			Mutex mutex = new Mutex(false, Application.ProductName + "ad90g7a9d7");
+			if (mutex.WaitOne(0, false))
+			{
+				FormDebug formDebug;
+				FormMain formMain;
+				WinHook.KeyboardHook keyboardHook;
+				WinHook.MouseHook mouseHook;
+				List<WinHook.UniversalHook> hookList;
 
-                using (keyboardHook = new WinHook.KeyboardHook())
-                {
-                    using (mouseHook = new WinHook.MouseHook())
-                    {
-                        hookList = new List<KeyCounter.WinHook.UniversalHook>();
-                        hookList.Add(keyboardHook);
-                        hookList.Add(mouseHook);
+				using (keyboardHook = new WinHook.KeyboardHook())
+				{
+					using (mouseHook = new WinHook.MouseHook())
+					{
+						hookList = new List<KeyCounter.WinHook.UniversalHook>();
+						hookList.Add(keyboardHook);
+						hookList.Add(mouseHook);
 
-                        formDebug = new FormDebug();
-                        formMain = new FormMain(formDebug, hookList);
-                        // don't show the form, to not confuse the alt-tab mechanism
-                        Application.Run();
-                    }
-                }
-            }
-            else
-                MessageBox.Show("You can start only one instance of " + Application.ProductName + "!", "Application Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-    }
+						formDebug = new FormDebug();
+						formMain = new FormMain(formDebug, hookList);
+						// don't show the form, to not confuse the alt-tab mechanism
+						Application.Run();
+					}
+				}
+			}
+			else
+				MessageBox.Show("You can start only one instance of " + Application.ProductName + "!", "Application Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+		}
+	}
 
-    public interface ITextDebugger
-    {
-        void Debug(string msg);
-        void Debug(string msg, DebugLevel msgLevel);
-        void SetLevel(DebugLevel level);
-        DebugLevel GetLevel();
-    }
+	public interface ITextDebugger
+	{
+		void Debug (string msg);
+		void Debug (string msg, DebugLevel msgLevel);
+		void SetLevel (DebugLevel level);
+		DebugLevel GetLevel ();
+	}
 
-    public enum DebugLevel
-    {
-        None = 0,
-        Critical = 1,
-        Error = 2,
-        Warning = 3,
-        Info = 4,
-        Debug = 5
-    }
+	public enum DebugLevel
+	{
+		None = 0,
+		Critical = 1,
+		Error = 2,
+		Warning = 3,
+		Info = 4,
+		Debug = 5
+	}
 
-    public interface IFileAccessChecker
-    {
-        FileAccessError CheckPathName(string path, string name);
-    }
+	public interface IFileAccessChecker
+	{
+		FileAccessError CheckPathName (string path, string name);
+	}
 
-    public enum FileAccessError
-    {
-        None,
-        DirectoryNotValid,
-        FilenameNotValid,
-        Unauthorized,
-        IllegalCharacter
-    }
+	public enum FileAccessError
+	{
+		None,
+		DirectoryNotValid,
+		FilenameNotValid,
+		Unauthorized,
+		IllegalCharacter
+	}
+
+	public class KeyCounterIcons
+	{
+		public static Icon iconDisplay = Properties.Resources.display;
+		public static Icon iconOptions = Properties.Resources.options;
+		public static Icon iconReset = Properties.Resources.reset;
+		public static Icon iconKeyboardOn = Properties.Resources.keyboard_on;
+		public static Icon iconKeyboardOff = Properties.Resources.keyboard_off;
+		public static Icon iconAbout = Properties.Resources.about;
+		public static Icon iconExit = Properties.Resources.icon_exit;
+	}
 }
