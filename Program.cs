@@ -95,12 +95,12 @@ namespace KeyCounter
 
 	public class KeyCounterIcons
 	{
-		public static Icon iconDisplay = Properties.Resources.display;
-		public static Icon iconOptions = Properties.Resources.options;
-		public static Icon iconReset = Properties.Resources.reset;
-		public static Icon iconKeyboardOn = Properties.Resources.keyboard_on;
-		public static Icon iconKeyboardOff = Properties.Resources.keyboard_off;
-		public static Icon iconAbout = Properties.Resources.about;
+		public static Icon iconDisplay = Properties.Resources.icon_display;
+		public static Icon iconOptions = Properties.Resources.icon_options;
+		public static Icon iconReset = Properties.Resources.icon_reset;
+		public static Icon iconKeyboardOn = Properties.Resources.icon_keyboard_on;
+		public static Icon iconKeyboardOff = Properties.Resources.icon_keyboard_off;
+		public static Icon iconAbout = Properties.Resources.icon_about;
 		public static Icon iconExit = Properties.Resources.icon_exit;
 	}
 }
