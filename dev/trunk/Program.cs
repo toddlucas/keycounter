@@ -51,8 +51,7 @@ namespace KeyCounter
 
 						formDebug = new FormDebug();
 						formMain = new FormMain(formDebug, hookList);
-						// don't show the form, to not confuse the alt-tab mechanism
-						Application.Run();
+						Application.Run(formMain);
 					}
 				}
 			}
