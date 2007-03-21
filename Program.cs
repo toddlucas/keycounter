@@ -35,24 +35,19 @@ namespace KeyCounter
 			Mutex mutex = new Mutex(false, Application.ProductName + "ad90g7a9d7");
 			if (mutex.WaitOne(0, false))
 			{
-				FormDebug formDebug;
-				FormMain formMain;
 				WinHook.KeyboardHook keyboardHook;
 				WinHook.MouseHook mouseHook;
 				List<WinHook.UniversalHook> hookList;
 
 				using (keyboardHook = new WinHook.KeyboardHook())
+				using (mouseHook = new WinHook.MouseHook())
 				{
-					using (mouseHook = new WinHook.MouseHook())
-					{
-						hookList = new List<KeyCounter.WinHook.UniversalHook>();
-						hookList.Add(keyboardHook);
-						hookList.Add(mouseHook);
+					hookList = new List<KeyCounter.WinHook.UniversalHook>();
+					hookList.Add(keyboardHook);
+					hookList.Add(mouseHook);
 
-						formDebug = new FormDebug();
-						formMain = new FormMain(formDebug, hookList);
-						Application.Run(formMain);
-					}
+					Application.Run(new FormMain(new FormDebug(), hookList));
+
 				}
 			}
 			else
