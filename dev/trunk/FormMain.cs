@@ -378,7 +378,8 @@ namespace KeyCounter
 
 		private void notifyIconKeyCounter_MouseDoubleClick(object sender, MouseEventArgs e)
 		{
-			displayToolStripMenuItem_Click(sender, e);
+			if (NotifyIconEnabled == true)
+				displayToolStripMenuItem_Click(sender, e);
 		}
 
 		private void timerHideForm_Tick(object sender, EventArgs e)
