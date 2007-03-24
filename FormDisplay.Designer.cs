@@ -253,7 +253,7 @@ namespace KeyCounter
 			// flowLayoutPanelCustomStartDate
 			// 
 			this.flowLayoutPanelCustomStartDate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-									| System.Windows.Forms.AnchorStyles.Right)));
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.flowLayoutPanelCustomStartDate.Controls.Add(this.labelCustomStartDate);
 			this.flowLayoutPanelCustomStartDate.Controls.Add(this.dateTimePickerCustomStartDate);
 			this.flowLayoutPanelCustomStartDate.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
@@ -282,7 +282,7 @@ namespace KeyCounter
 			// flowLayoutPanelCustomEndDate
 			// 
 			this.flowLayoutPanelCustomEndDate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-									| System.Windows.Forms.AnchorStyles.Right)));
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.flowLayoutPanelCustomEndDate.AutoSize = true;
 			this.flowLayoutPanelCustomEndDate.Controls.Add(this.labelCustomEndDate);
 			this.flowLayoutPanelCustomEndDate.Controls.Add(this.dateTimePickerCustomEndDate);
@@ -312,7 +312,7 @@ namespace KeyCounter
 			// flowLayoutPanelCustomGroupBy
 			// 
 			this.flowLayoutPanelCustomGroupBy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-									| System.Windows.Forms.AnchorStyles.Right)));
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.flowLayoutPanelCustomGroupBy.AutoSize = true;
 			this.flowLayoutPanelCustomGroupBy.Controls.Add(this.labelCustomGroupBy);
 			this.flowLayoutPanelCustomGroupBy.Controls.Add(this.comboBoxCustomGroupBy);
@@ -388,7 +388,6 @@ namespace KeyCounter
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(606, 482);
-			this.ControlBox = false;
 			this.Controls.Add(this.tableLayoutPanelReports);
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;

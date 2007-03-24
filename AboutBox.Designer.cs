@@ -92,7 +92,7 @@ namespace KeyCounter
 			// labelVersion
 			// 
 			this.labelVersion.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.labelVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.labelVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.labelVersion.Location = new System.Drawing.Point(143, 26);
 			this.labelVersion.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
 			this.labelVersion.MaximumSize = new System.Drawing.Size(0, 17);
@@ -105,7 +105,7 @@ namespace KeyCounter
 			// labelCopyright
 			// 
 			this.labelCopyright.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.labelCopyright.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.labelCopyright.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.labelCopyright.Location = new System.Drawing.Point(143, 52);
 			this.labelCopyright.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
 			this.labelCopyright.MaximumSize = new System.Drawing.Size(0, 17);
@@ -118,7 +118,7 @@ namespace KeyCounter
 			// labelCompiled
 			// 
 			this.labelCompiled.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.labelCompiled.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.labelCompiled.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.labelCompiled.Location = new System.Drawing.Point(143, 78);
 			this.labelCompiled.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
 			this.labelCompiled.MaximumSize = new System.Drawing.Size(0, 17);
