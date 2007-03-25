@@ -29,7 +29,6 @@ namespace KeyCounter
 	{
 		private FormDebug formDebug;
 		private ITextDebugger textDebugger;
-		private List<UniversalHook> hookList;
 		private CounterEngine<int> counterEngine;
 		private bool hookEnabled = false;
 		private const int updateUpTimePeriodMs = 10000;
@@ -54,7 +53,6 @@ namespace KeyCounter
 
 			this.formDebug = formDebug;
 			this.textDebugger = formDebug;
-			this.hookList = hookList;
 			this.counterEngine = new CounterEngine<int>(new KeyTab<int>(GenerateKeyTable()), this.textDebugger);
 
 			if (this.debugModeEnabled)

@@ -8,12 +8,17 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public
 License for more details.
 
 System requirements:
-Windows 2000 SP4/Windows XP/Windows Vista
+Windows 2000 SP4 / Windows XP / Windows Server 2003 / Windows Vista
 Microsoft .NET Framework 2.0
+The binary distributions were compiled using Microsoft Visual C# 2005 Express Edition.
+
+Contact:
+If you have any questions, recommendations or comments about KeyCounter, feel free to
+send a mail to the development-team: keycounter@gmail.com.
 
 Changelog:
 
-0.10 2007-xx-xx
+0.10 2007-03-25
 -----------------
 - options dialog
 - balloon tips
