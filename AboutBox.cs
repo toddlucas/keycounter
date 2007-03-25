@@ -37,6 +37,8 @@ namespace KeyCounter
 			this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
 			this.labelCopyright.Text = AssemblyCopyright;
 			this.labelCompiled.Text = "Compiled " + AssemblyCompileDate + " " + AssemblyCompileTime;
+			this.linkLabelContact.Text = "Contact the dev-team: keycounter@gmail.com";
+			this.linkLabelWebsite.Text = "Project website: http://keycounter.sourceforge.net";
 			this.textBoxDescription.Text = AssemblyDescription;
 		}
 
@@ -158,6 +160,16 @@ namespace KeyCounter
 		private void okButton_Click(object sender, EventArgs e)
 		{
 			Close();
+		}
+
+		private void linkLabelContact_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			System.Diagnostics.Process.Start("mailto:keycounter@gmail.com");
+		}
+
+		private void linkLabelWebsite_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			System.Diagnostics.Process.Start("http://keycounter.sourceforge.net");
 		}
 	}
 }
