@@ -15,7 +15,6 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Threading;
 using System.Drawing;
 
 namespace KeyCounter
@@ -32,8 +31,10 @@ namespace KeyCounter
 			Application.SetCompatibleTextRenderingDefault(false);
 
 			// generate mutex to allow only one instance of keycounter
-			Mutex mutex = new Mutex(false, Application.ProductName + "ad90g7a9d7");
-			if (mutex.WaitOne(0, false))
+			bool pobjIOwnMutex = false;
+            System.Threading.Mutex pobjMutex = new System.Threading.Mutex(true, Application.ProductName + "ad90g7a9d7", out pobjIOwnMutex);
+
+            if (pobjIOwnMutex)
 			{
 				WinHook.KeyboardHook keyboardHook;
 				WinHook.MouseHook mouseHook;
@@ -47,7 +48,7 @@ namespace KeyCounter
 					hookList.Add(mouseHook);
 
 					Application.Run(new FormMain(new FormDebug(), hookList));
-
+                    pobjMutex.ReleaseMutex();
 				}
 			}
 			else
