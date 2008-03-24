@@ -11,7 +11,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("KeyCounter")]
-[assembly: AssemblyCopyright("Copyright Leitner, Pramhaas 2007")]
+[assembly: AssemblyCopyright("Leitner, Pramhaas 2007-2008")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
