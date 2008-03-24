@@ -9,14 +9,21 @@ License for more details.
 
 System requirements:
 Windows 2000 SP4 / Windows XP / Windows Server 2003 / Windows Vista
-Microsoft .NET Framework 2.0
-The binary distributions were compiled using Microsoft Visual C# 2005 Express Edition.
+Microsoft .NET Framework 2.0 for versions up to 0.10.0.0
+Microsoft .NET Framework 3.5 for later versions
+The binary distributions up to 0.10.0.0 were compiled using Microsoft Visual C# 2005 Express Edition.
+Later binary distributions were compiled using Microsoft Visual C# 2008 Express Edition.
 
 Contact:
 If you have any questions, recommendations or comments about KeyCounter, feel free to
 send a mail to the development-team: keycounter@gmail.com.
 
 Changelog:
+
+0.10.1.0 2008-03-24
+-----------------
+- target framework changed to .NET 3.5, Visual C# 2008
+- fixed copyright notice in about box: no copyright for editors in GPL licensed software!
 
 0.10 2007-03-25
 -----------------
